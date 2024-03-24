@@ -7,6 +7,8 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.android.orgs.R
+import com.android.orgs.model.Produto
+import java.math.BigDecimal
 
 class FormularioProdutoActivity :
     AppCompatActivity(R.layout.activity_formulario_produto) {
@@ -18,7 +20,22 @@ class FormularioProdutoActivity :
             override fun onClick(v: View?) {
                 val campoNome = findViewById<EditText>(R.id.nome)
                 val nome = campoNome.text.toString()
-                Log.i("FormularioProdutoActivity", "onCreate: $nome")
+                val campoDescricao = findViewById<EditText>(R.id.descricao)
+                val descricao = campoDescricao.text.toString()
+                val campoValor = findViewById<EditText>(R.id.valor)
+                val valorEmTexto = campoValor.text.toString()
+                val valor = if (valorEmTexto.isNullOrBlank()) {
+                    BigDecimal.ZERO
+                } else {
+                    BigDecimal(valorEmTexto)
+                }
+
+                val produtoNovo = Produto(
+                    nome = nome,
+                    descricao = descricao,
+                    valor = valor
+                )
+                Log.i("FormularioProdutoActivity", "onCreate: $produtoNovo")
             }
         })
     }

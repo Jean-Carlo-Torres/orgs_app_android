@@ -1,12 +1,13 @@
 package com.android.orgs.ui.activity
 
-import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.android.orgs.R
 import com.android.orgs.model.Produto
 import com.android.orgs.ui.recyclerview.adapter.ListaProdutosAdapter
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.math.BigDecimal
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
@@ -27,6 +28,10 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 )
             )
         )
-        //recyclerView.layoutManager = LinearLayoutManager(this)
+        val fab = findViewById<FloatingActionButton>(R.id.floatingActionButton)
+        fab.setOnClickListener {
+            val intent = Intent(this, FormularioProdutoActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

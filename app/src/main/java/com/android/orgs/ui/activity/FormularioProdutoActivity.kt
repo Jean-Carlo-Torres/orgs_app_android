@@ -1,7 +1,6 @@
 package com.android.orgs.ui.activity
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -16,14 +15,25 @@ class FormularioProdutoActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val botaoSalvar = findViewById<Button>(R.id.botao_salvar)
+        configuraBotaoSalvar()
+    }
+
+    private fun configuraBotaoSalvar() {
+        val botaoSalvar = findViewById<Button>(R.id.activity_formulario_produto_botao_salvar)
+        val dao = ProdutosDAO()
         botaoSalvar.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
-                val campoNome = findViewById<EditText>(R.id.nome)
+                val produtoNovo = criaProduto()
+                dao.adicionarProduto(produtoNovo)
+                finish()
+            }
+
+            private fun criaProduto(): Produto {
+                val campoNome = findViewById<EditText>(R.id.activity_formulario_produto_nome)
                 val nome = campoNome.text.toString()
-                val campoDescricao = findViewById<EditText>(R.id.descricao)
+                val campoDescricao = findViewById<EditText>(R.id.activity_formulario_produto_descricao)
                 val descricao = campoDescricao.text.toString()
-                val campoValor = findViewById<EditText>(R.id.valor)
+                val campoValor = findViewById<EditText>(R.id.activity_formulario_produto_valor)
                 val valorEmTexto = campoValor.text.toString()
                 val valor = if (valorEmTexto.isNullOrBlank()) {
                     BigDecimal.ZERO
@@ -31,16 +41,11 @@ class FormularioProdutoActivity :
                     BigDecimal(valorEmTexto)
                 }
 
-                val produtoNovo = Produto(
+                return Produto(
                     nome = nome,
                     descricao = descricao,
                     valor = valor
                 )
-                Log.i("FormularioProdutoActivity", "onCreate: $produtoNovo")
-                val dao = ProdutosDAO()
-                dao.adicionarProduto(produtoNovo)
-                Log.i("FormularioProdutoActivity", "listagem: ${dao.buscaTodos()}")
-                finish()
             }
         })
     }

@@ -1,21 +1,26 @@
 package com.android.orgs.ui.activity
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
+import android.util.Log
+import android.view.View
+import android.widget.Button
+import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.android.orgs.R
-import com.android.orgs.ui.activity.ui.theme.OrgsTheme
 
 class FormularioProdutoActivity :
     AppCompatActivity(R.layout.activity_formulario_produto) {
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val botaoSalvar = findViewById<Button>(R.id.botao_salvar)
+        botaoSalvar.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                val campoNome = findViewById<EditText>(R.id.nome)
+                val nome = campoNome.text.toString()
+                Log.i("FormularioProdutoActivity", "onCreate: $nome")
+            }
+        })
+    }
 }
 

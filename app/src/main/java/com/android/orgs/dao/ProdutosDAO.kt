@@ -1,6 +1,7 @@
 package com.android.orgs.dao
 
 import com.android.orgs.model.Produto
+import java.math.BigDecimal
 
 class ProdutosDAO {
 
@@ -13,6 +14,12 @@ class ProdutosDAO {
     }
 
     companion object {
-        private val produtos = mutableListOf<Produto>()
+        private val produtos = mutableListOf<Produto>(
+            Produto(
+                nome = "Salada de frutas",
+                descricao = "Salada de frutas com legumes",
+                valor = BigDecimal("19.90")
+            )
+        )
     }
 }

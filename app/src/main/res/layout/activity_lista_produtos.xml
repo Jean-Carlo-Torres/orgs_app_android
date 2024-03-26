@@ -17,16 +17,16 @@
             tools:listitem="@layout/produto_item"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
     />
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/activity_lista_produtos_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:clickable="true"
-            android:focusable="true"
-            app:srcCompat="@drawable/baseline_add_24"
+            android:layout_gravity="bottom|right"
+            android:text="Novo Produto"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-    />
+            app:icon="@drawable/baseline_add_24"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

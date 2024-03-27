@@ -27,6 +27,6 @@
             android:text="Novo Produto"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:icon="@drawable/baseline_add_24"/>
+            app:icon="@drawable/action_add_24"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

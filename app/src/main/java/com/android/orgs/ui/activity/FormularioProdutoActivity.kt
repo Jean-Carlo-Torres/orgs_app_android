@@ -8,9 +8,11 @@ import coil.ImageLoader
 import coil.decode.GifDecoder
 import coil.decode.ImageDecoderDecoder
 import coil.load
+import com.android.orgs.R
 import com.android.orgs.dao.ProdutosDAO
 import com.android.orgs.databinding.ActivityFormularioProdutoBinding
 import com.android.orgs.databinding.FormularioImagemBinding
+import com.android.orgs.extensions.tentaCarregarImagem
 import com.android.orgs.model.Produto
 import java.math.BigDecimal
 
@@ -39,9 +41,7 @@ class FormularioProdutoActivity :
             val bindingFormularioImagem = FormularioImagemBinding.inflate(layoutInflater)
             bindingFormularioImagem.formularioImagemBotaoCarregar.setOnClickListener {
                 val url = bindingFormularioImagem.formularioImagemUrl.text.toString()
-                bindingFormularioImagem.formularioImagemImagemview.load(
-                    url,
-                    imageLoader = imageLoader)
+                bindingFormularioImagem.formularioImagemImagemview.tentaCarregarImagem(url, imageLoader)
             }
             AlertDialog.Builder(this)
                 .setTitle("Inserir Imagem")
@@ -50,7 +50,10 @@ class FormularioProdutoActivity :
                     url = bindingFormularioImagem.formularioImagemUrl.text.toString()
                     binding.activityFormularioProdutoImageview.load(
                         url,
-                        imageLoader)
+                        imageLoader) {
+                        fallback(R.drawable.imagem_padrao)
+                        error(R.drawable.erro)
+                    }
                 }
                 .setNegativeButton("Cancelar") { _, _ ->
 

@@ -5,9 +5,8 @@ import android.icu.text.NumberFormat
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
-import com.android.orgs.R
 import com.android.orgs.databinding.ProdutoItemBinding
+import com.android.orgs.extensions.tentaCarregarImagem
 import com.android.orgs.model.Produto
 import java.math.BigDecimal
 import java.util.*
@@ -42,11 +41,7 @@ class ListaProdutosAdapter(
             val valorEmMoeda: String = formataParaMoedaBrasileira(produto.valor)
             valor.text = valorEmMoeda
 
-            if (produto.imagem != null) {
-                binding.imageView.load(produto.imagem)
-            } else {
-                binding.imageView.load(R.drawable.imagem_padrao)
-            }
+            binding.imageView.tentaCarregarImagem(produto.imagem)
         }
 
         private fun formataParaMoedaBrasileira(valor: BigDecimal): String {

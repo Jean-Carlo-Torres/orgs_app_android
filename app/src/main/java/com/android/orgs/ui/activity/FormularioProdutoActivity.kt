@@ -1,8 +1,12 @@
 package com.android.orgs.ui.activity
 
+import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import coil.ImageLoader
+import coil.decode.GifDecoder
+import coil.decode.ImageDecoderDecoder
 import coil.load
 import com.android.orgs.dao.ProdutosDAO
 import com.android.orgs.databinding.ActivityFormularioProdutoBinding
@@ -22,18 +26,31 @@ class FormularioProdutoActivity :
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         configuraBotaoSalvar()
+        val imageLoader = ImageLoader.Builder(this)
+            .components {
+                if (SDK_INT >= 28) {
+                    add(ImageDecoderDecoder.Factory(true))
+                } else {
+                    add(GifDecoder.Factory())
+                }
+            }
+            .build()
         binding.activityFormularioProdutoImageview.setOnClickListener {
             val bindingFormularioImagem = FormularioImagemBinding.inflate(layoutInflater)
             bindingFormularioImagem.formularioImagemBotaoCarregar.setOnClickListener {
                 val url = bindingFormularioImagem.formularioImagemUrl.text.toString()
-                bindingFormularioImagem.formularioImagemImagemview.load(url)
+                bindingFormularioImagem.formularioImagemImagemview.load(
+                    url,
+                    imageLoader = imageLoader)
             }
             AlertDialog.Builder(this)
                 .setTitle("Inserir Imagem")
                 .setView(bindingFormularioImagem.root)
                 .setPositiveButton("Ok") { _, _ ->
                     url = bindingFormularioImagem.formularioImagemUrl.text.toString()
-                    binding.activityFormularioProdutoImageview.load(url)
+                    binding.activityFormularioProdutoImageview.load(
+                        url,
+                        imageLoader)
                 }
                 .setNegativeButton("Cancelar") { _, _ ->
 

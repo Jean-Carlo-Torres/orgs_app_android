@@ -24,7 +24,7 @@ class FormularioProdutoActivity :
 
         binding.activityFormularioProdutoImageview.setOnClickListener {
             FormularioImagemDialog(this)
-                .mostrarDialog { imagem ->
+                .mostrarDialog(url) { imagem ->
                     url = imagem
                     binding.activityFormularioProdutoImageview.tentaCarregarImagem(url)
                 }

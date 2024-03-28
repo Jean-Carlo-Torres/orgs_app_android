@@ -7,22 +7,31 @@ import com.android.orgs.databinding.FormularioImagemBinding
 import com.android.orgs.extensions.tentaCarregarImagem
 
 class FormularioImagemDialog(val context: Context) {
-    fun mostrarDialog(quandoImagemCarregada: (imagem: String) -> Unit) {
-        val binding = FormularioImagemBinding.inflate(LayoutInflater.from(context))
-        binding.formularioImagemBotaoCarregar.setOnClickListener {
-            val url = binding.formularioImagemUrl.text.toString()
-            binding.formularioImagemImagemview.tentaCarregarImagem(url)
-        }
-        AlertDialog.Builder(context)
-            .setTitle("Inserir Imagem")
-            .setView(binding.root)
-            .setPositiveButton("Ok") { _, _ ->
-                val url = binding.formularioImagemUrl.text.toString()
-                quandoImagemCarregada(url)
-            }
-            .setNegativeButton("Cancelar") { _, _ ->
+    fun mostrarDialog(
+        urlPadrao: String? = null,
+        quandoImagemCarregada: (imagem: String) -> Unit
+    ) {
+        FormularioImagemBinding
+            .inflate(LayoutInflater.from(context)).apply {
+                urlPadrao?.let {
+                    formularioImagemImagemview.tentaCarregarImagem(it)
+                    formularioImagemUrl.setText(it)
+                }
+                formularioImagemBotaoCarregar.setOnClickListener {
+                    val url = formularioImagemUrl.text.toString()
+                    formularioImagemImagemview.tentaCarregarImagem(url)
+                }
+                AlertDialog.Builder(context)
+                    .setTitle("Inserir Imagem")
+                    .setView(root)
+                    .setPositiveButton("Ok") { _, _ ->
+                        val url = formularioImagemUrl.text.toString()
+                        quandoImagemCarregada(url)
+                    }
+                    .setNegativeButton("Cancelar") { _, _ ->
 
+                    }
+                    .show()
             }
-            .show()
     }
 }

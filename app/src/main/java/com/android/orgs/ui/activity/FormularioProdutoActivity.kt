@@ -20,6 +20,7 @@ class FormularioProdutoActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        title = "Cadastrar Produto"
         configuraBotaoSalvar()
 
         binding.activityFormularioProdutoImageview.setOnClickListener {

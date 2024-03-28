@@ -26,7 +26,6 @@
         <activity
                 android:name=".ui.activity.FormularioProdutoActivity"
                 android:exported="true"
-                android:label="@string/title_activity_formulario_produto"
                 android:theme="@style/Theme.Orgs">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

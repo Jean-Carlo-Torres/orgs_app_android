@@ -1,27 +1,37 @@
 package com.android.orgs.ui.recyclerview.adapter
 
 import android.content.Context
-import android.icu.text.NumberFormat
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.android.orgs.databinding.ProdutoItemBinding
+import com.android.orgs.extensions.formatarParaMoedaBrasileira
 import com.android.orgs.extensions.tentaCarregarImagem
 import com.android.orgs.model.Produto
-import java.math.BigDecimal
-import java.util.*
 
 class ListaProdutosAdapter(
     private val context: Context,
-    produtos: List<Produto>
+    produtos: List<Produto>,
+    var quandoClicaNoItem: (produto: Produto) -> Unit = {}
 ) : RecyclerView.Adapter<ListaProdutosAdapter.ViewHolder>() {
 
     private val produtos = produtos.toMutableList()
 
-    class ViewHolder(private val binding: ProdutoItemBinding) :
+    inner class ViewHolder(private val binding: ProdutoItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
+        private lateinit var produto: Produto
+
+        init {
+            itemView.setOnClickListener {
+                if (::produto.isInitialized) {
+                    quandoClicaNoItem(produto)
+                }
+            }
+        }
+
         fun vincula(produto: Produto) {
+            this.produto = produto
             val nome = binding.produtoItemNome
             val descricao = binding.produtoItemDescricao
             val valor = binding.produtoItemValor
@@ -38,16 +48,10 @@ class ListaProdutosAdapter(
                 descricao.text = "Produto sem descrição"
             }
 
-            val valorEmMoeda: String = formataParaMoedaBrasileira(produto.valor)
+            val valorEmMoeda: String = produto.valor.formatarParaMoedaBrasileira()
             valor.text = valorEmMoeda
 
             binding.imageView.tentaCarregarImagem(produto.imagem)
-        }
-
-        private fun formataParaMoedaBrasileira(valor: BigDecimal): String {
-            val formatador: NumberFormat = NumberFormat
-                .getCurrencyInstance(Locale("pt", "br"))
-            return formatador.format(valor)
         }
     }
 

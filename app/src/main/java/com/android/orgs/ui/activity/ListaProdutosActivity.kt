@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.android.orgs.dao.ProdutosDAO
+import com.android.orgs.database.OrgsAppDatabase
 import com.android.orgs.databinding.ActivityListaProdutosBinding
 import com.android.orgs.ui.recyclerview.adapter.ListaProdutosAdapter
 
@@ -24,7 +25,9 @@ class ListaProdutosActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        adapter.atualiza(dao.buscaTodos())
+        val db = OrgsAppDatabase.instancia(this)
+        val produtosDao = db.produtoDao()
+        adapter.atualiza(produtosDao.buscaTodos())
     }
 
     private fun configuraFab() {

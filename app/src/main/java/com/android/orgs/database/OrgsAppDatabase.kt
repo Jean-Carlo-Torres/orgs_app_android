@@ -1,6 +1,8 @@
 package com.android.orgs.database
 
+import android.content.Context
 import androidx.room.Database
+import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.android.orgs.database.converters.Converters
@@ -11,4 +13,17 @@ import com.android.orgs.model.Produto
 @TypeConverters(Converters::class)
 abstract class OrgsAppDatabase : RoomDatabase() {
     abstract fun produtoDao(): ProdutoDao
+
+    companion object {
+        fun instancia(context: Context): OrgsAppDatabase {
+            return Room.databaseBuilder(
+                context,
+                OrgsAppDatabase::
+                class.java,
+                "orgs.db"
+            )
+                .allowMainThreadQueries()
+                .build()
+        }
+    }
 }

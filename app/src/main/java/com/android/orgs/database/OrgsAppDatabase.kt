@@ -9,7 +9,7 @@ import com.android.orgs.database.converters.Converters
 import com.android.orgs.database.dao.ProdutoDao
 import com.android.orgs.model.Produto
 
-@Database(entities = [Produto::class], version = 1)
+@Database(entities = [Produto::class], version = 1, exportSchema = true)
 @TypeConverters(Converters::class)
 abstract class OrgsAppDatabase : RoomDatabase() {
     abstract fun produtoDao(): ProdutoDao

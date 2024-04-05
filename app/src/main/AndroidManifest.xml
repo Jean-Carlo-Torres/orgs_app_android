@@ -28,8 +28,7 @@
         <activity
                 android:name=".ui.activity.DetalhesProdutoActivity"
                 android:exported="false"
-                android:label="@string/title_activity_detalhes_produto"
-                android:theme="@style/Theme.Orgs.NoActionBar"/>
+        />
         <activity
                 android:name=".ui.activity.ListaProdutosActivity"
                 android:exported="true">

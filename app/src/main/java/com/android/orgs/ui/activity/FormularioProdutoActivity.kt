@@ -16,6 +16,7 @@ class FormularioProdutoActivity :
         ActivityFormularioProdutoBinding.inflate(layoutInflater)
     }
     private var url: String? = null
+    private var idProduto = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +31,15 @@ class FormularioProdutoActivity :
                     binding.activityFormularioProdutoImageview.tentaCarregarImagem(url)
                 }
         }
+        intent.getParcelableExtra<Produto>(CHAVE_PRODUTO)?.let { produtoCarregado ->
+            title = "Alterar Produto"
+            idProduto = produtoCarregado.id
+            url = produtoCarregado.imagem
+            binding.activityFormularioProdutoImageview.tentaCarregarImagem(produtoCarregado.imagem)
+            binding.activityFormularioProdutoNome.setText(produtoCarregado.nome)
+            binding.activityFormularioProdutoDescricao.setText(produtoCarregado.descricao)
+            binding.activityFormularioProdutoValor.setText(produtoCarregado.valor.toPlainString())
+        }
     }
 
     private fun configuraBotaoSalvar() {
@@ -39,7 +49,11 @@ class FormularioProdutoActivity :
 
         botaoSalvar.setOnClickListener {
             val produtoNovo = criaProduto()
-            produtoDao.salvar(produtoNovo)
+            if (idProduto > 0) {
+                produtoDao.altera(produtoNovo)
+            } else {
+                produtoDao.salvar(produtoNovo)
+            }
             finish()
         }
     }
@@ -58,6 +72,7 @@ class FormularioProdutoActivity :
         }
 
         return Produto(
+            id = idProduto,
             nome = nome,
             descricao = descricao,
             valor = valor,

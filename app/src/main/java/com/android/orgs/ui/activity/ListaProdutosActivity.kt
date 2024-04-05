@@ -2,16 +2,17 @@ package com.android.orgs.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.android.orgs.database.OrgsAppDatabase
 import com.android.orgs.databinding.ActivityListaProdutosBinding
+import com.android.orgs.model.Produto
 import com.android.orgs.ui.recyclerview.adapter.ListaProdutosAdapter
 
 private const val TAG = "ListaProdutosActivity"
 
 class ListaProdutosActivity : AppCompatActivity() {
 
+    private lateinit var produto: Produto
     private val adapter = ListaProdutosAdapter(context = this)
     private val binding by lazy {
         ActivityListaProdutosBinding.inflate(layoutInflater)
@@ -56,11 +57,18 @@ class ListaProdutosActivity : AppCompatActivity() {
                 }
             startActivity(intent)
         }
-        adapter.quandoClicaNoBotaoEditar = {
-            Log.d(TAG, "quandoClicaNoBotaoEditar: $it")
+        adapter.quandoClicaNoBotaoEditar = { produto ->
+            val intent = Intent(this, FormularioProdutoActivity::class.java).apply {
+                putExtra(CHAVE_PRODUTO, produto)
+            }
+            startActivity(intent)
         }
-        adapter.quandoClicaNoBotaoRemover = {
-            Log.d(TAG, "quandoClicaNoBotaoDeletar: $it")
+        adapter.quandoClicaNoBotaoRemover = { produto ->
+            val db = OrgsAppDatabase.instancia(this)
+            val produtoDao = db.produtoDao()
+            produtoDao.remove(produto)
+            adapter.atualiza(produtoDao.buscaTodos())
         }
+
     }
 }

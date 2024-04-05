@@ -1,11 +1,12 @@
 package com.android.orgs.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.android.orgs.R
+import com.android.orgs.database.OrgsAppDatabase
 import com.android.orgs.databinding.ActivityDetalhesProdutoBinding
 import com.android.orgs.extensions.formatarParaMoedaBrasileira
 import com.android.orgs.extensions.tentaCarregarImagem
@@ -15,6 +16,7 @@ private const val TAG = "DetalhesProdutoActivity"
 
 class DetalhesProdutoActivity : AppCompatActivity() {
 
+    private lateinit var produto: Produto
     private val binding by lazy {
         ActivityDetalhesProdutoBinding.inflate(layoutInflater)
     }
@@ -32,13 +34,21 @@ class DetalhesProdutoActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.menu_detalhes_produto_remover -> {
-                Log.i(TAG, "onOptionsItemSelected: remover")
-            }
+        if (::produto.isInitialized) {
+            val db = OrgsAppDatabase.instancia(this)
+            val produtoDao = db.produtoDao()
+            when (item.itemId) {
+                R.id.menu_detalhes_produto_remover -> {
+                    produtoDao.remove(produto)
+                    finish()
+                }
 
-            R.id.menu_detalhes_produto_editar -> {
-                Log.i(TAG, "onOptionsItemSelected: editar")
+                R.id.menu_detalhes_produto_editar -> {
+                    Intent(this, FormularioProdutoActivity::class.java).apply {
+                        putExtra(CHAVE_PRODUTO, produto)
+                        startActivity(this)
+                    }
+                }
             }
         }
         return super.onOptionsItemSelected(item)
@@ -46,6 +56,7 @@ class DetalhesProdutoActivity : AppCompatActivity() {
 
     private fun tentaCarregarProduto() {
         intent.getParcelableExtra<Produto>(CHAVE_PRODUTO)?.let { produtoCarregado ->
+            produto = produtoCarregado
             preencheCampos(produtoCarregado)
         } ?: finish()
     }

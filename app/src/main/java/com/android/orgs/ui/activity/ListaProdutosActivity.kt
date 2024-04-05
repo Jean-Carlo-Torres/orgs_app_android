@@ -2,10 +2,13 @@ package com.android.orgs.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.android.orgs.database.OrgsAppDatabase
 import com.android.orgs.databinding.ActivityListaProdutosBinding
 import com.android.orgs.ui.recyclerview.adapter.ListaProdutosAdapter
+
+private const val TAG = "ListaProdutosActivity"
 
 class ListaProdutosActivity : AppCompatActivity() {
 
@@ -52,6 +55,12 @@ class ListaProdutosActivity : AppCompatActivity() {
                     putExtra(CHAVE_PRODUTO, it)
                 }
             startActivity(intent)
+        }
+        adapter.quandoClicaNoBotaoEditar = {
+            Log.d(TAG, "quandoClicaNoBotaoEditar: $it")
+        }
+        adapter.quandoClicaNoBotaoRemover = {
+            Log.d(TAG, "quandoClicaNoBotaoDeletar: $it")
         }
     }
 }

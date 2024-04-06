@@ -15,8 +15,11 @@ class FormularioProdutoActivity :
     private val binding by lazy {
         ActivityFormularioProdutoBinding.inflate(layoutInflater)
     }
+    private val produtoDao by lazy {
+        OrgsAppDatabase.instancia(this).produtoDao()
+    }
     private var url: String? = null
-    private var idProduto = 0L
+    private var produtoId = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,29 +34,40 @@ class FormularioProdutoActivity :
                     binding.activityFormularioProdutoImageview.tentaCarregarImagem(url)
                 }
         }
-        intent.getParcelableExtra<Produto>(CHAVE_PRODUTO)?.let { produtoCarregado ->
+        tentaCarregarProduto()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        tentaBuscarProduto()
+    }
+
+    private fun tentaBuscarProduto() {
+        produtoDao.buscaPorId(produtoId)?.let {
             title = "Alterar Produto"
-            idProduto = produtoCarregado.id
-            url = produtoCarregado.imagem
-            binding.activityFormularioProdutoImageview.tentaCarregarImagem(produtoCarregado.imagem)
-            binding.activityFormularioProdutoNome.setText(produtoCarregado.nome)
-            binding.activityFormularioProdutoDescricao.setText(produtoCarregado.descricao)
-            binding.activityFormularioProdutoValor.setText(produtoCarregado.valor.toPlainString())
+            preencheCampos(it)
         }
+    }
+
+    private fun tentaCarregarProduto() {
+        produtoId = intent.getLongExtra(CHAVE_PRODUTO_ID, 0)
+    }
+
+    private fun preencheCampos(produto: Produto) {
+        url = produto.imagem
+        binding.activityFormularioProdutoImageview.tentaCarregarImagem(produto.imagem)
+        binding.activityFormularioProdutoNome.setText(produto.nome)
+        binding.activityFormularioProdutoDescricao.setText(produto.descricao)
+        binding.activityFormularioProdutoValor.setText(produto.valor.toPlainString())
     }
 
     private fun configuraBotaoSalvar() {
         val botaoSalvar = binding.activityFormularioProdutoBotaoSalvar
-        val db = OrgsAppDatabase.instancia(this)
-        val produtoDao = db.produtoDao()
+
 
         botaoSalvar.setOnClickListener {
             val produtoNovo = criaProduto()
-            if (idProduto > 0) {
-                produtoDao.altera(produtoNovo)
-            } else {
-                produtoDao.salvar(produtoNovo)
-            }
+            produtoDao.salvar(produtoNovo)
             finish()
         }
     }
@@ -72,7 +86,7 @@ class FormularioProdutoActivity :
         }
 
         return Produto(
-            id = idProduto,
+            id = produtoId,
             nome = nome,
             descricao = descricao,
             valor = valor,

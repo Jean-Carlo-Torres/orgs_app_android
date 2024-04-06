@@ -53,13 +53,13 @@ class ListaProdutosActivity : AppCompatActivity() {
                 DetalhesProdutoActivity::class.java
             )
                 .apply {
-                    putExtra(CHAVE_PRODUTO, it)
+                    putExtra(CHAVE_PRODUTO_ID, it.id)
                 }
             startActivity(intent)
         }
         adapter.quandoClicaNoBotaoEditar = { produto ->
             val intent = Intent(this, FormularioProdutoActivity::class.java).apply {
-                putExtra(CHAVE_PRODUTO, produto)
+                putExtra(CHAVE_PRODUTO_ID, produto.id)
             }
             startActivity(intent)
         }

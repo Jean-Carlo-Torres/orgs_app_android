@@ -1,17 +1,18 @@
 package com.android.orgs.ui.activity
 
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.android.orgs.database.OrgsAppDatabase
 import com.android.orgs.databinding.ActivityFormularioProdutoBinding
 import com.android.orgs.extensions.tentaCarregarImagem
 import com.android.orgs.model.Produto
 import com.android.orgs.ui.dialog.FormularioImagemDialog
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import java.math.BigDecimal
+
+private val TAG = "FormularioProdutoActivity"
 
 class FormularioProdutoActivity :
     AppCompatActivity() {
@@ -26,6 +27,14 @@ class FormularioProdutoActivity :
     private var produtoId = 0L
 
     private val scope = CoroutineScope(Dispatchers.IO)
+    val handler = CoroutineExceptionHandler { coroutineContext, throwable ->
+        Log.i(TAG, "CoroutineExceptionHandler: ${throwable.message}")
+        Toast.makeText(
+            this@FormularioProdutoActivity,
+            "Falha ao salvar produto",
+            Toast.LENGTH_SHORT
+        ).show()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +58,7 @@ class FormularioProdutoActivity :
     }
 
     private fun tentaBuscarProduto() {
-        scope.launch {
+        scope.launch(handler) {
             produtoDao.buscaPorId(produtoId)?.let {
                 withContext(Dispatchers.Main) {
                     title = "Alterar Produto"
@@ -74,10 +83,9 @@ class FormularioProdutoActivity :
     private fun configuraBotaoSalvar() {
         val botaoSalvar = binding.activityFormularioProdutoBotaoSalvar
 
-
         botaoSalvar.setOnClickListener {
             val produtoNovo = criaProduto()
-            scope.launch {
+            scope.launch(handler) {
                 produtoDao.salvar(produtoNovo)
                 finish()
             }

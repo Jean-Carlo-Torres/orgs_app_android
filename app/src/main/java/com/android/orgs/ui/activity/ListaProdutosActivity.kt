@@ -2,18 +2,19 @@ package com.android.orgs.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.android.orgs.R
 import com.android.orgs.database.OrgsAppDatabase
 import com.android.orgs.databinding.ActivityListaProdutosBinding
 import com.android.orgs.model.Produto
 import com.android.orgs.ui.recyclerview.adapter.ListaProdutosAdapter
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
+
+private val TAG = "ListaProdutosActivity"
 
 class ListaProdutosActivity : AppCompatActivity() {
 
@@ -36,7 +37,15 @@ class ListaProdutosActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         val scope = MainScope()
-        scope.launch {
+        val handler = CoroutineExceptionHandler { coroutineContext, throwable ->
+            Log.e(TAG, "onResume: throwable $throwable")
+            Toast.makeText(
+                this@ListaProdutosActivity,
+                "Falha ao buscar produtos",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+        scope.launch(handler) {
             val produtos = withContext(Dispatchers.IO) {
                 produtosDao.buscaTodos()
             }

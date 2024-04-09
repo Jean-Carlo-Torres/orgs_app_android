@@ -43,11 +43,15 @@ class DetalhesProdutoActivity : AppCompatActivity() {
 
     private fun buscaProduto() {
         scope.launch {
-            produto = produtoDao.buscaPorId(produtoId)
-            withContext(Main) {
-                produto?.let {
-                    preencheCampos(it)
-                } ?: finish()
+            try {
+                produto = produtoDao.buscaPorId(produtoId)
+                withContext(Main) {
+                    produto?.let {
+                        preencheCampos(it)
+                    } ?: finish()
+                }
+            } catch (e: Exception) {
+                finish()
             }
         }
     }
@@ -61,10 +65,14 @@ class DetalhesProdutoActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.menu_detalhes_produto_remover -> {
                 scope.launch {
-                    produto?.let {
-                        produtoDao.remove(it)
+                    try {
+                        produto?.let {
+                            produtoDao.remove(it)
+                        }
+                        finish()
+                    } catch (e: Exception) {
+                        finish()
                     }
-                    finish()
                 }
             }
 

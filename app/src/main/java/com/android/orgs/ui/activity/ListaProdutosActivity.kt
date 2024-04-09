@@ -10,8 +10,10 @@ import com.android.orgs.database.OrgsAppDatabase
 import com.android.orgs.databinding.ActivityListaProdutosBinding
 import com.android.orgs.model.Produto
 import com.android.orgs.ui.recyclerview.adapter.ListaProdutosAdapter
-
-private const val TAG = "ListaProdutosActivity"
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ListaProdutosActivity : AppCompatActivity() {
 
@@ -33,7 +35,13 @@ class ListaProdutosActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        adapter.atualiza(produtosDao.buscaTodos())
+        val scope = MainScope()
+        scope.launch {
+            val produtos = withContext(Dispatchers.IO) {
+                produtosDao.buscaTodos()
+            }
+            adapter.atualiza(produtos)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -45,18 +53,25 @@ class ListaProdutosActivity : AppCompatActivity() {
         val produtosOrdenado: List<Produto>? = when (item.itemId) {
             R.id.menu_lista_produtos_ordenar_nome_crescente ->
                 produtosDao.ordenarProdutosPorNomeCrescente()
+
             R.id.menu_lista_produtos_ordenar_nome_decrescente ->
                 produtosDao.ordenarProdutosPorNomeDecrescente()
+
             R.id.menu_lista_produtos_ordenar_descricao_crescente ->
                 produtosDao.ordenarProdutosPorDescricaoCrescente()
+
             R.id.menu_lista_produtos_ordenar_descricao_decrescente ->
                 produtosDao.ordenarProdutosPorDescricaoDecrescente()
+
             R.id.menu_lista_produtos_ordenar_valor_crescente ->
                 produtosDao.ordenarProdutosPorValorCrescente()
+
             R.id.menu_lista_produtos_ordenar_valor_decrescente ->
                 produtosDao.ordenarProdutosPorValorDecrescente()
+
             R.id.menu_lista_produtos_ordenar_sem_ordem ->
                 produtosDao.buscaTodos()
+
             else -> null
         }
         produtosOrdenado?.let {

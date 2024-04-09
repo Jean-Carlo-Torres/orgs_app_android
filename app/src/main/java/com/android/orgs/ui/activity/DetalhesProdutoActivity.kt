@@ -11,13 +11,17 @@ import com.android.orgs.databinding.ActivityDetalhesProdutoBinding
 import com.android.orgs.extensions.formatarParaMoedaBrasileira
 import com.android.orgs.extensions.tentaCarregarImagem
 import com.android.orgs.model.Produto
-
-private const val TAG = "DetalhesProdutoActivity"
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class DetalhesProdutoActivity : AppCompatActivity() {
 
     private var produto: Produto? = null
     private var produtoId: Long = 0L
+    private val scope = CoroutineScope(Dispatchers.Main)
     private val binding by lazy {
         ActivityDetalhesProdutoBinding.inflate(layoutInflater)
     }
@@ -38,10 +42,14 @@ class DetalhesProdutoActivity : AppCompatActivity() {
     }
 
     private fun buscaProduto() {
-        produto = produtoDao.buscaPorId(produtoId)
-        produto?.let {
-            preencheCampos(it)
-        } ?: finish()
+        scope.launch {
+            produto = produtoDao.buscaPorId(produtoId)
+            withContext(Main) {
+                produto?.let {
+                    preencheCampos(it)
+                } ?: finish()
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -52,10 +60,12 @@ class DetalhesProdutoActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_detalhes_produto_remover -> {
-                produto?.let {
-                    produtoDao.remove(it)
+                scope.launch {
+                    produto?.let {
+                        produtoDao.remove(it)
+                    }
+                    finish()
                 }
-                finish()
             }
 
             R.id.menu_detalhes_produto_editar -> {

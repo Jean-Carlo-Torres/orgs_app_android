@@ -7,6 +7,10 @@ import com.android.orgs.databinding.ActivityFormularioProdutoBinding
 import com.android.orgs.extensions.tentaCarregarImagem
 import com.android.orgs.model.Produto
 import com.android.orgs.ui.dialog.FormularioImagemDialog
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.math.BigDecimal
 
 class FormularioProdutoActivity :
@@ -20,6 +24,8 @@ class FormularioProdutoActivity :
     }
     private var url: String? = null
     private var produtoId = 0L
+
+    private val scope = CoroutineScope(Dispatchers.IO)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,9 +49,13 @@ class FormularioProdutoActivity :
     }
 
     private fun tentaBuscarProduto() {
-        produtoDao.buscaPorId(produtoId)?.let {
-            title = "Alterar Produto"
-            preencheCampos(it)
+        scope.launch {
+            produtoDao.buscaPorId(produtoId)?.let {
+                withContext(Dispatchers.Main) {
+                    title = "Alterar Produto"
+                    preencheCampos(it)
+                }
+            }
         }
     }
 
@@ -67,8 +77,10 @@ class FormularioProdutoActivity :
 
         botaoSalvar.setOnClickListener {
             val produtoNovo = criaProduto()
-            produtoDao.salvar(produtoNovo)
-            finish()
+            scope.launch {
+                produtoDao.salvar(produtoNovo)
+                finish()
+            }
         }
     }
 

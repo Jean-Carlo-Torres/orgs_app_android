@@ -15,8 +15,9 @@ abstract class OrgsAppDatabase : RoomDatabase() {
     abstract fun produtoDao(): ProdutoDao
 
     companion object {
+        @Volatile private var db: OrgsAppDatabase? = null
         fun instancia(context: Context): OrgsAppDatabase {
-            return Room.databaseBuilder(
+            return db ?: Room.databaseBuilder(
                 context,
                 OrgsAppDatabase::
                 class.java,
@@ -24,6 +25,9 @@ abstract class OrgsAppDatabase : RoomDatabase() {
             )
                 .allowMainThreadQueries()
                 .build()
+                .also {
+                    db = it
+                }
         }
     }
 }

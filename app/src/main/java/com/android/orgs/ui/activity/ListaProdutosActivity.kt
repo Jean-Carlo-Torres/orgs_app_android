@@ -14,6 +14,7 @@ import com.android.orgs.databinding.ActivityListaProdutosBinding
 import com.android.orgs.model.Produto
 import com.android.orgs.ui.recyclerview.adapter.ListaProdutosAdapter
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 
 private val TAG = "ListaProdutosActivity"
@@ -42,16 +43,12 @@ class ListaProdutosActivity : AppCompatActivity() {
         setContentView(binding.root)
         confiruraRecyclerView()
         configuraFab()
-    }
-
-    override fun onResume() {
-        super.onResume()
         lifecycleScope.launch(handler) {
-            val produtos = produtoDao.buscaTodos()
-            adapter.atualiza(produtos)
+            produtoDao.buscaTodos().collect { produtos ->
+                adapter.atualiza(produtos)
+            }
         }
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_ordenacao_lista_produtos, menu)
@@ -80,7 +77,7 @@ class ListaProdutosActivity : AppCompatActivity() {
                     produtoDao.ordenarProdutosPorValorDecrescente()
 
                 R.id.menu_lista_produtos_ordenar_sem_ordem ->
-                    produtoDao.buscaTodos()
+                    produtoDao.buscaTodos().firstOrNull()
 
                 else -> null
             }
@@ -127,7 +124,9 @@ class ListaProdutosActivity : AppCompatActivity() {
         adapter.quandoClicaNoBotaoRemover = { produto ->
             lifecycleScope.launch {
                 produtoDao.remove(produto)
-                adapter.atualiza(produtoDao.buscaTodos())
+                produtoDao.buscaTodos().collect { produtos ->
+                    adapter.atualiza(produtos)
+                }
             }
         }
     }

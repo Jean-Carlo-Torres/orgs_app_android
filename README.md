@@ -46,6 +46,7 @@ Menus de opções para ordenar produtos por nome, descrição ou valor.
 - `Menu de opções`: menu para editar e remover
 - `Extras`: técnica para enviar e receber informações entre Activities
 - `inicialização lateinit e lazy`: técnicas para criar propriedades em Activities que não podem ser inicializadas na construção da Activity
+- `Coroutines`: Estrutura para escrever código assíncrono de forma concisa e legível em Kotlin, evitando bloqueios de thread
 
 <hr>
 

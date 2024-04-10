@@ -17,37 +17,39 @@
         <activity
                 android:name=".ui.activity.SplashActivity"
                 android:exported="true"
-                android:theme="@style/Theme.Orgs.NoActionBar"
-        >
+                android:theme="@style/Theme.Orgs.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity
+                android:name=".ui.activity.LoginActivity"
+                android:exported="true"
+                android:theme="@style/Theme.Orgs.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".ui.activity.FormularioCadastroUsuarioActivity"
+                android:exported="true"
+                android:label="Cadastrar usuário"
+                android:theme="@style/Theme.Orgs">
         </activity>
         <activity
                 android:name=".ui.activity.DetalhesProdutoActivity"
-                android:exported="false"
-        />
+                android:exported="false"/>
         <activity
                 android:name=".ui.activity.ListaProdutosActivity"
-                android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-        </activity>
+                android:exported="true"/>
         <activity
                 android:name=".ui.activity.FormularioProdutoActivity"
                 android:exported="true"
-                android:theme="@style/Theme.Orgs">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-        </activity>
+                android:theme="@style/Theme.Orgs"/>
 
         <meta-data
                 android:name="preloaded_fonts"

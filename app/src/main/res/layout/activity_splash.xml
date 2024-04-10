@@ -9,7 +9,7 @@
     <ImageView
             android:layout_width="215dp"
             android:layout_height="87dp"
-            app:srcCompat="@drawable/orgs_logo"
+            app:srcCompat="@drawable/orgs_logo_splash"
     />
 
 </LinearLayout>

@@ -1,6 +1,8 @@
 # Orgs - App Android
 App Android de simulação de um e-commerce de produtos naturais.
 
+:construction: Projeto em desenvolvimento :construction:
+
 ## 🔨 Funcionalidades do projeto
 
 O projeto permite cadastrar, alterar e remover produtos com imagem, nome, descrição e valor. Os produtos salvos são apresentados em uma lista e podem ser visualizados ao realizar o clique.

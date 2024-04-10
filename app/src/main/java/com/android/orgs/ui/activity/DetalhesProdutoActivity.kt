@@ -2,33 +2,44 @@ package com.android.orgs.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.android.orgs.R
 import com.android.orgs.database.OrgsAppDatabase
 import com.android.orgs.databinding.ActivityDetalhesProdutoBinding
 import com.android.orgs.extensions.formatarParaMoedaBrasileira
 import com.android.orgs.extensions.tentaCarregarImagem
 import com.android.orgs.model.Produto
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+
+private val TAG = "DetalhesProdutoActivity"
 
 class DetalhesProdutoActivity : AppCompatActivity() {
 
     private var produto: Produto? = null
     private var produtoId: Long = 0L
-    private val scope = CoroutineScope(Dispatchers.Main)
     private val binding by lazy {
         ActivityDetalhesProdutoBinding.inflate(layoutInflater)
     }
     private val produtoDao by lazy {
         OrgsAppDatabase.instancia(this).produtoDao()
     }
-
+    private val handler = CoroutineExceptionHandler { coroutineContext, throwable ->
+        Log.i(TAG, "CoroutineExceptionHandler: ${throwable.message}")
+        Toast.makeText(
+            this,
+            "Ocorreu um erro ao carregar os dados do produto",
+            Toast.LENGTH_SHORT
+        ).show()
+        finish()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +53,7 @@ class DetalhesProdutoActivity : AppCompatActivity() {
     }
 
     private fun buscaProduto() {
-        scope.launch {
+        lifecycleScope.launch(handler) {
             try {
                 produto = produtoDao.buscaPorId(produtoId)
                 withContext(Main) {
@@ -64,7 +75,7 @@ class DetalhesProdutoActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_detalhes_produto_remover -> {
-                scope.launch {
+                lifecycleScope.launch(handler) {
                     try {
                         produto?.let {
                             produtoDao.remove(it)

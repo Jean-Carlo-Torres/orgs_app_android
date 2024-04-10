@@ -4,12 +4,16 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.android.orgs.database.OrgsAppDatabase
 import com.android.orgs.databinding.ActivityFormularioProdutoBinding
 import com.android.orgs.extensions.tentaCarregarImagem
 import com.android.orgs.model.Produto
 import com.android.orgs.ui.dialog.FormularioImagemDialog
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.math.BigDecimal
 
 private val TAG = "FormularioProdutoActivity"
@@ -26,8 +30,7 @@ class FormularioProdutoActivity :
     private var url: String? = null
     private var produtoId = 0L
 
-    private val scope = CoroutineScope(Dispatchers.IO)
-    val handler = CoroutineExceptionHandler { coroutineContext, throwable ->
+    private val handler = CoroutineExceptionHandler { coroutineContext, throwable ->
         Log.i(TAG, "CoroutineExceptionHandler: ${throwable.message}")
         Toast.makeText(
             this@FormularioProdutoActivity,
@@ -58,7 +61,7 @@ class FormularioProdutoActivity :
     }
 
     private fun tentaBuscarProduto() {
-        scope.launch(handler) {
+        lifecycleScope.launch(handler) {
             produtoDao.buscaPorId(produtoId)?.let {
                 withContext(Dispatchers.Main) {
                     title = "Alterar Produto"
@@ -85,7 +88,7 @@ class FormularioProdutoActivity :
 
         botaoSalvar.setOnClickListener {
             val produtoNovo = criaProduto()
-            scope.launch(handler) {
+            lifecycleScope.launch(handler) {
                 produtoDao.salvar(produtoNovo)
                 finish()
             }

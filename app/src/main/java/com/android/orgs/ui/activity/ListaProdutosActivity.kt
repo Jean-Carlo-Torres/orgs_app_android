@@ -7,12 +7,14 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.android.orgs.R
 import com.android.orgs.database.OrgsAppDatabase
 import com.android.orgs.databinding.ActivityListaProdutosBinding
 import com.android.orgs.model.Produto
 import com.android.orgs.ui.recyclerview.adapter.ListaProdutosAdapter
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.launch
 
 private val TAG = "ListaProdutosActivity"
 
@@ -23,8 +25,16 @@ class ListaProdutosActivity : AppCompatActivity() {
     private val binding by lazy {
         ActivityListaProdutosBinding.inflate(layoutInflater)
     }
-    private val produtosDao by lazy {
+    private val produtoDao by lazy {
         OrgsAppDatabase.instancia(this).produtoDao()
+    }
+    val handler = CoroutineExceptionHandler { coroutineContext, throwable ->
+        Log.e(TAG, "onResume: throwable $throwable")
+        Toast.makeText(
+            this@ListaProdutosActivity,
+            "Falha ao buscar produtos",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,22 +46,12 @@ class ListaProdutosActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        val scope = MainScope()
-        val handler = CoroutineExceptionHandler { coroutineContext, throwable ->
-            Log.e(TAG, "onResume: throwable $throwable")
-            Toast.makeText(
-                this@ListaProdutosActivity,
-                "Falha ao buscar produtos",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-        scope.launch(handler) {
-            val produtos = withContext(Dispatchers.IO) {
-                produtosDao.buscaTodos()
-            }
+        lifecycleScope.launch(handler) {
+            val produtos = produtoDao.buscaTodos()
             adapter.atualiza(produtos)
         }
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_ordenacao_lista_produtos, menu)
@@ -59,35 +59,39 @@ class ListaProdutosActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val produtosOrdenado: List<Produto>? = when (item.itemId) {
-            R.id.menu_lista_produtos_ordenar_nome_crescente ->
-                produtosDao.ordenarProdutosPorNomeCrescente()
+        lifecycleScope.launch {
+            val produtosOrdenado: List<Produto>? = when (item.itemId) {
+                R.id.menu_lista_produtos_ordenar_nome_crescente ->
+                    produtoDao.ordenarProdutosPorNomeCrescente()
 
-            R.id.menu_lista_produtos_ordenar_nome_decrescente ->
-                produtosDao.ordenarProdutosPorNomeDecrescente()
+                R.id.menu_lista_produtos_ordenar_nome_decrescente ->
+                    produtoDao.ordenarProdutosPorNomeDecrescente()
 
-            R.id.menu_lista_produtos_ordenar_descricao_crescente ->
-                produtosDao.ordenarProdutosPorDescricaoCrescente()
+                R.id.menu_lista_produtos_ordenar_descricao_crescente ->
+                    produtoDao.ordenarProdutosPorDescricaoCrescente()
 
-            R.id.menu_lista_produtos_ordenar_descricao_decrescente ->
-                produtosDao.ordenarProdutosPorDescricaoDecrescente()
+                R.id.menu_lista_produtos_ordenar_descricao_decrescente ->
+                    produtoDao.ordenarProdutosPorDescricaoDecrescente()
 
-            R.id.menu_lista_produtos_ordenar_valor_crescente ->
-                produtosDao.ordenarProdutosPorValorCrescente()
+                R.id.menu_lista_produtos_ordenar_valor_crescente ->
+                    produtoDao.ordenarProdutosPorValorCrescente()
 
-            R.id.menu_lista_produtos_ordenar_valor_decrescente ->
-                produtosDao.ordenarProdutosPorValorDecrescente()
+                R.id.menu_lista_produtos_ordenar_valor_decrescente ->
+                    produtoDao.ordenarProdutosPorValorDecrescente()
 
-            R.id.menu_lista_produtos_ordenar_sem_ordem ->
-                produtosDao.buscaTodos()
+                R.id.menu_lista_produtos_ordenar_sem_ordem ->
+                    produtoDao.buscaTodos()
 
-            else -> null
-        }
-        produtosOrdenado?.let {
-            adapter.atualiza(it)
+                else -> null
+            }
+
+            produtosOrdenado?.let {
+                adapter.atualiza(it)
+            }
         }
         return super.onOptionsItemSelected(item)
     }
+
 
     private fun configuraFab() {
         val fab = binding.activityListaProdutosFab
@@ -121,11 +125,10 @@ class ListaProdutosActivity : AppCompatActivity() {
             startActivity(intent)
         }
         adapter.quandoClicaNoBotaoRemover = { produto ->
-            val db = OrgsAppDatabase.instancia(this)
-            val produtoDao = db.produtoDao()
-            produtoDao.remove(produto)
-            adapter.atualiza(produtoDao.buscaTodos())
+            lifecycleScope.launch {
+                produtoDao.remove(produto)
+                adapter.atualiza(produtoDao.buscaTodos())
+            }
         }
-
     }
 }

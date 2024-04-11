@@ -1,10 +1,7 @@
 package com.android.orgs.database
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
+import androidx.room.*
 import com.android.orgs.database.converters.Converters
 import com.android.orgs.database.dao.ProdutoDao
 import com.android.orgs.database.dao.UsuarioDao
@@ -17,7 +14,11 @@ import com.android.orgs.model.Usuario
         Usuario::class
     ],
     version = 2,
-    exportSchema = true
+    exportSchema = true,
+    
+    autoMigrations = [
+        AutoMigration(from = 1, to = 2)
+    ]
 )
 @TypeConverters(Converters::class)
 abstract class OrgsAppDatabase : RoomDatabase() {
@@ -33,8 +34,7 @@ abstract class OrgsAppDatabase : RoomDatabase() {
                 OrgsAppDatabase::
                 class.java,
                 "orgs.db"
-            ).fallbackToDestructiveMigration()
-                .build()
+            ).build()
                 .also {
                     db = it
                 }

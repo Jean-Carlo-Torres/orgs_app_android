@@ -29,7 +29,10 @@ class ListaProdutosActivity : AppCompatActivity() {
     private val produtoDao by lazy {
         OrgsAppDatabase.instancia(this).produtoDao()
     }
-    val handler = CoroutineExceptionHandler { coroutineContext, throwable ->
+    private val usuarioDao by lazy {
+        OrgsAppDatabase.instancia(this).usuarioDao()
+    }
+    private val handler = CoroutineExceptionHandler { coroutineContext, throwable ->
         Log.e(TAG, "onResume: throwable $throwable")
         Toast.makeText(
             this@ListaProdutosActivity,
@@ -44,8 +47,15 @@ class ListaProdutosActivity : AppCompatActivity() {
         confiruraRecyclerView()
         configuraFab()
         lifecycleScope.launch(handler) {
-            produtoDao.buscaTodos().collect { produtos ->
-                adapter.atualiza(produtos)
+            launch {
+                produtoDao.buscaTodos().collect { produtos ->
+                    adapter.atualiza(produtos)
+                }
+            }
+            intent.getStringExtra("CHAVE_USUARIO_ID")?.let { usuarioId ->
+                usuarioDao.buscaPorId(usuarioId).collect {
+                    Log.i(TAG, "onCreate: $it")
+                }
             }
         }
     }

@@ -2,14 +2,22 @@ package com.android.orgs.ui.activity
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import com.android.orgs.database.OrgsAppDatabase
 import com.android.orgs.databinding.ActivityFormularioCadastroUsuarioBinding
 import com.android.orgs.model.Usuario
+import kotlinx.coroutines.launch
 
 class FormularioCadastroUsuarioActivity : AppCompatActivity() {
 
-    private val binding by lazy{
+    private val binding by lazy {
         ActivityFormularioCadastroUsuarioBinding.inflate(layoutInflater)
+    }
+
+    private val usuarioDao by lazy {
+        OrgsAppDatabase.instancia(this).usuarioDao()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +30,19 @@ class FormularioCadastroUsuarioActivity : AppCompatActivity() {
         binding.activityFormularioCadastroBotaoCadastrar.setOnClickListener {
             val novoUsuario = criaUsuario()
             Log.i("CadastroUsuario", "onCreate: $novoUsuario")
-            finish()
+            lifecycleScope.launch {
+                try {
+                    usuarioDao.salva(novoUsuario)
+                    finish()
+                } catch (e: Exception) {
+                    Log.i("CadastroUsuario", "configuraBotaoSalvar: $e")
+                    Toast.makeText(
+                        this@FormularioCadastroUsuarioActivity,
+                        "Falha ao cadastrar usuário",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
         }
     }
 

@@ -9,6 +9,8 @@ import com.android.orgs.database.OrgsAppDatabase
 import com.android.orgs.databinding.ActivityFormularioProdutoBinding
 import com.android.orgs.extensions.tentaCarregarImagem
 import com.android.orgs.model.Produto
+import com.android.orgs.preferences.dataStore
+import com.android.orgs.preferences.usuarioLogadoPreferences
 import com.android.orgs.ui.dialog.FormularioImagemDialog
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
@@ -26,6 +28,9 @@ class FormularioProdutoActivity :
     }
     private val produtoDao by lazy {
         OrgsAppDatabase.instancia(this).produtoDao()
+    }
+    private val usuarioDao by lazy {
+        OrgsAppDatabase.instancia(this).usuarioDao()
     }
     private var url: String? = null
     private var produtoId = 0L
@@ -53,6 +58,15 @@ class FormularioProdutoActivity :
                 }
         }
         tentaCarregarProduto()
+        lifecycleScope.launch {
+            dataStore.data.collect { preferences ->
+                preferences[usuarioLogadoPreferences]?.let { usuarioId ->
+                    usuarioDao.buscaPorId(usuarioId).collect {
+                        Log.i(TAG, "onCreate: $it")
+                    }
+                }
+            }
+        }
     }
 
     override fun onResume() {

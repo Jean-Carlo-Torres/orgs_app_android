@@ -12,6 +12,8 @@ import com.android.orgs.R
 import com.android.orgs.database.OrgsAppDatabase
 import com.android.orgs.databinding.ActivityListaProdutosBinding
 import com.android.orgs.model.Produto
+import com.android.orgs.preferences.dataStore
+import com.android.orgs.preferences.usuarioLogadoPreferences
 import com.android.orgs.ui.recyclerview.adapter.ListaProdutosAdapter
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.firstOrNull
@@ -52,9 +54,11 @@ class ListaProdutosActivity : AppCompatActivity() {
                     adapter.atualiza(produtos)
                 }
             }
-            intent.getStringExtra("CHAVE_USUARIO_ID")?.let { usuarioId ->
-                usuarioDao.buscaPorId(usuarioId).collect {
-                    Log.i(TAG, "onCreate: $it")
+            dataStore.data.collect { preferences ->
+                preferences[usuarioLogadoPreferences]?.let { usuarioId ->
+                    usuarioDao.buscaPorId(usuarioId).collect {
+                        Log.i(TAG, "onCreate: $it")
+                    }
                 }
             }
         }

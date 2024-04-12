@@ -94,5 +94,5 @@ dependencies {
     implementation("io.coil-kt:coil-gif:2.6.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1-Beta")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version")
-
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
 }

@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.android.orgs.R
@@ -13,6 +12,7 @@ import com.android.orgs.database.OrgsAppDatabase
 import com.android.orgs.databinding.ActivityDetalhesProdutoBinding
 import com.android.orgs.extensions.formatarParaMoedaBrasileira
 import com.android.orgs.extensions.tentaCarregarImagem
+import com.android.orgs.extensions.toast
 import com.android.orgs.model.Produto
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers.Main
@@ -33,11 +33,7 @@ class DetalhesProdutoActivity : AppCompatActivity() {
     }
     private val handler = CoroutineExceptionHandler { coroutineContext, throwable ->
         Log.i(TAG, "CoroutineExceptionHandler: ${throwable.message}")
-        Toast.makeText(
-            this,
-            "Ocorreu um erro ao carregar os dados do produto",
-            Toast.LENGTH_SHORT
-        ).show()
+        toast("Ocorreu um erro ao carregar os dados do produto")
         finish()
     }
 

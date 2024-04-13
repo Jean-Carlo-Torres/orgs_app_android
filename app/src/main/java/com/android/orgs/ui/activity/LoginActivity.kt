@@ -1,13 +1,12 @@
 package com.android.orgs.ui.activity
 
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.lifecycleScope
 import com.android.orgs.database.OrgsAppDatabase
 import com.android.orgs.databinding.ActivityLoginBinding
+import com.android.orgs.extensions.toast
 import com.android.orgs.extensions.vaiPara
 import com.android.orgs.preferences.dataStore
 import com.android.orgs.preferences.usuarioLogadoPreferences
@@ -34,20 +33,19 @@ class LoginActivity : AppCompatActivity() {
         binding.activityLoginBotaoEntrar.setOnClickListener {
             val usuario = binding.activityLoginUsuario.text.toString()
             val senha = binding.activityLoginSenha.text.toString()
-            Log.i("LoginActivity", "onCreate: $usuario - $senha")
-            lifecycleScope.launch {
-                usuarioDao.autentica(usuario, senha)?.let { usuario ->
-                    dataStore.edit { preferences ->
-                        preferences[usuarioLogadoPreferences] = usuario.id
-                    }
-                    vaiPara(ListaProdutosActivity::class.java)
-                    finish()
-                } ?: Toast.makeText(
-                    this@LoginActivity,
-                    "Usuário ou senha inválidos",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
+            autentica(usuario, senha)
+        }
+    }
+
+    private fun autentica(usuario: String, senha: String) {
+        lifecycleScope.launch {
+            usuarioDao.autentica(usuario, senha)?.let { usuario ->
+                dataStore.edit { preferences ->
+                    preferences[usuarioLogadoPreferences] = usuario.id
+                }
+                vaiPara(ListaProdutosActivity::class.java)
+                finish()
+            } ?: toast("Usuário ou senha inválidos")
         }
     }
 

@@ -2,12 +2,12 @@ package com.android.orgs.ui.activity
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.android.orgs.database.OrgsAppDatabase
 import com.android.orgs.databinding.ActivityFormularioProdutoBinding
 import com.android.orgs.extensions.tentaCarregarImagem
+import com.android.orgs.extensions.toast
 import com.android.orgs.model.Produto
 import com.android.orgs.preferences.dataStore
 import com.android.orgs.preferences.usuarioLogadoPreferences
@@ -37,11 +37,7 @@ class FormularioProdutoActivity :
 
     private val handler = CoroutineExceptionHandler { coroutineContext, throwable ->
         Log.i(TAG, "CoroutineExceptionHandler: ${throwable.message}")
-        Toast.makeText(
-            this@FormularioProdutoActivity,
-            "Falha ao salvar produto",
-            Toast.LENGTH_SHORT
-        ).show()
+        toast("Falha ao salvar produto")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

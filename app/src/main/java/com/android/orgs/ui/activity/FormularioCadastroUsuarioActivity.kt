@@ -2,11 +2,11 @@ package com.android.orgs.ui.activity
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.android.orgs.database.OrgsAppDatabase
 import com.android.orgs.databinding.ActivityFormularioCadastroUsuarioBinding
+import com.android.orgs.extensions.toast
 import com.android.orgs.model.Usuario
 import kotlinx.coroutines.launch
 
@@ -29,19 +29,18 @@ class FormularioCadastroUsuarioActivity : AppCompatActivity() {
     private fun configuraBotaoCadastrar() {
         binding.activityFormularioCadastroBotaoCadastrar.setOnClickListener {
             val novoUsuario = criaUsuario()
-            Log.i("CadastroUsuario", "onCreate: $novoUsuario")
-            lifecycleScope.launch {
-                try {
-                    usuarioDao.salva(novoUsuario)
-                    finish()
-                } catch (e: Exception) {
-                    Log.i("CadastroUsuario", "configuraBotaoSalvar: $e")
-                    Toast.makeText(
-                        this@FormularioCadastroUsuarioActivity,
-                        "Falha ao cadastrar usuário",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+            cadastraUsuario(novoUsuario)
+        }
+    }
+
+    private fun cadastraUsuario(usuario: Usuario) {
+        lifecycleScope.launch {
+            try {
+                usuarioDao.salva(usuario)
+                finish()
+            } catch (e: Exception) {
+                Log.i("CadastroUsuario", "configuraBotaoSalvar: $e")
+                toast("Falha ao cadastrar usuário")
             }
         }
     }

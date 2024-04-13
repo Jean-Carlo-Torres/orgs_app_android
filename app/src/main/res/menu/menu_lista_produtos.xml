@@ -3,7 +3,7 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
             android:id="@+id/menu_lista_produtos_ordenar"
-            android:icon="@drawable/baseline_dehaze_24"
+            android:icon="@drawable/ic_listar_action"
             android:title="ordenar"
             app:showAsAction="ifRoom">
         <menu>
@@ -30,4 +30,12 @@
                     android:title="Sem ordem" />
         </menu>
     </item>
+
+    <item
+            android:id="@+id/menu_lista_produtos_sair_app"
+            android:title="Sair do App"
+            android:icon="@drawable/ic_sair_do_app_action"
+            app:showAsAction="ifRoom"
+    />
+
 </menu>

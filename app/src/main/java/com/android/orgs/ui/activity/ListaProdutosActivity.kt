@@ -7,10 +7,12 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.lifecycleScope
 import com.android.orgs.R
 import com.android.orgs.database.OrgsAppDatabase
 import com.android.orgs.databinding.ActivityListaProdutosBinding
+import com.android.orgs.extensions.vaiPara
 import com.android.orgs.model.Produto
 import com.android.orgs.preferences.dataStore
 import com.android.orgs.preferences.usuarioLogadoPreferences
@@ -56,16 +58,23 @@ class ListaProdutosActivity : AppCompatActivity() {
             }
             dataStore.data.collect { preferences ->
                 preferences[usuarioLogadoPreferences]?.let { usuarioId ->
-                    usuarioDao.buscaPorId(usuarioId).collect {
-                        Log.i(TAG, "onCreate: $it")
+                    launch {
+                        usuarioDao.buscaPorId(usuarioId).collect {
+                            Log.i(TAG, "onCreate: $it")
+                        }
                     }
-                }
+                } ?: vaiParaLogin()
             }
         }
     }
 
+    private fun vaiParaLogin() {
+        vaiPara(LoginActivity::class.java)
+        finish()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_ordenacao_lista_produtos, menu)
+        menuInflater.inflate(R.menu.menu_lista_produtos, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -96,13 +105,25 @@ class ListaProdutosActivity : AppCompatActivity() {
                 else -> null
             }
 
+            val sairDoApp = when (item.itemId) {
+                R.id.menu_lista_produtos_sair_app -> {
+                    dataStore.edit { preferences ->
+                        preferences.remove(usuarioLogadoPreferences)
+                    }
+                }
+
+                else -> null
+            }
+
             produtosOrdenado?.let {
                 adapter.atualiza(it)
+            }
+            sairDoApp?.let {
+                finish()
             }
         }
         return super.onOptionsItemSelected(item)
     }
-
 
     private fun configuraFab() {
         val fab = binding.activityListaProdutosFab

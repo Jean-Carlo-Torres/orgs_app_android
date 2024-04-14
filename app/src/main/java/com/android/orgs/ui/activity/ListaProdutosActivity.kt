@@ -88,6 +88,21 @@ class ListaProdutosActivity : UsuarioBaseActivity() {
                 else -> null
             }
 
+            val ExibirPerfilUsuario = when (item.itemId) {
+                R.id.menu_lista_produtos_perfil_usuario -> {
+                    lifecycleScope.launch {
+                        usuario
+                            .filterNotNull()
+                            .collect {
+                                val intent = Intent(this@ListaProdutosActivity, PerfilUsuarioActivity::class.java)
+                                startActivity(intent)
+                            }
+                    }
+                }
+
+                else -> null
+            }
+
             val sairDoApp = when (item.itemId) {
                 R.id.menu_lista_produtos_sair_app -> {
                     lifecycleScope.launch {
@@ -102,6 +117,9 @@ class ListaProdutosActivity : UsuarioBaseActivity() {
                 adapter.atualiza(it)
             }
             sairDoApp?.let {
+                finish()
+            }
+            ExibirPerfilUsuario?.let {
                 finish()
             }
         }

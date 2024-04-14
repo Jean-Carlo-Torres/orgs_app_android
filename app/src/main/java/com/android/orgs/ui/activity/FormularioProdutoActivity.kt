@@ -2,26 +2,23 @@ package com.android.orgs.ui.activity
 
 import android.os.Bundle
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.android.orgs.database.OrgsAppDatabase
 import com.android.orgs.databinding.ActivityFormularioProdutoBinding
 import com.android.orgs.extensions.tentaCarregarImagem
 import com.android.orgs.extensions.toast
 import com.android.orgs.model.Produto
-import com.android.orgs.preferences.dataStore
-import com.android.orgs.preferences.usuarioLogadoPreferences
 import com.android.orgs.ui.dialog.FormularioImagemDialog
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.math.BigDecimal
 
 private val TAG = "FormularioProdutoActivity"
 
-class FormularioProdutoActivity :
-    AppCompatActivity() {
+class FormularioProdutoActivity : UsuarioBaseActivity() {
 
     private val binding by lazy {
         ActivityFormularioProdutoBinding.inflate(layoutInflater)
@@ -55,13 +52,11 @@ class FormularioProdutoActivity :
         }
         tentaCarregarProduto()
         lifecycleScope.launch {
-            dataStore.data.collect { preferences ->
-                preferences[usuarioLogadoPreferences]?.let { usuarioId ->
-                    usuarioDao.buscaPorId(usuarioId).collect {
-                        Log.i(TAG, "onCreate: $it")
-                    }
+            usuario
+                .filterNotNull()
+                .collect {
+                    Log.i(TAG, "Usuario: $it")
                 }
-            }
         }
     }
 

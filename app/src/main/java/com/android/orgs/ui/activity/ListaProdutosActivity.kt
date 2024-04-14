@@ -5,25 +5,21 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
-import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.lifecycleScope
 import com.android.orgs.R
 import com.android.orgs.database.OrgsAppDatabase
 import com.android.orgs.databinding.ActivityListaProdutosBinding
 import com.android.orgs.extensions.toast
-import com.android.orgs.extensions.vaiPara
 import com.android.orgs.model.Produto
-import com.android.orgs.preferences.dataStore
-import com.android.orgs.preferences.usuarioLogadoPreferences
 import com.android.orgs.ui.recyclerview.adapter.ListaProdutosAdapter
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 
 private val TAG = "ListaProdutosActivity"
 
-class ListaProdutosActivity : AppCompatActivity() {
+class ListaProdutosActivity : UsuarioBaseActivity() {
 
     private lateinit var produto: Produto
     private val adapter = ListaProdutosAdapter(context = this)
@@ -32,9 +28,6 @@ class ListaProdutosActivity : AppCompatActivity() {
     }
     private val produtoDao by lazy {
         OrgsAppDatabase.instancia(this).produtoDao()
-    }
-    private val usuarioDao by lazy {
-        OrgsAppDatabase.instancia(this).usuarioDao()
     }
     private val handler = CoroutineExceptionHandler { coroutineContext, throwable ->
         Log.e(TAG, "onResume: throwable $throwable")
@@ -47,24 +40,12 @@ class ListaProdutosActivity : AppCompatActivity() {
         confiruraRecyclerView()
         configuraFab()
         lifecycleScope.launch(handler) {
-            verificaUsuarioLogado()
-        }
-    }
-
-    private suspend fun verificaUsuarioLogado() {
-        dataStore.data.collect { preferences ->
-            preferences[usuarioLogadoPreferences]?.let { usuarioId ->
-                    buscaUsuario(usuarioId)
-            } ?: vaiParaLogin()
-        }
-    }
-
-    private fun buscaUsuario(usuarioId: String) {
-        lifecycleScope.launch {
-            usuarioDao.buscaPorId(usuarioId).firstOrNull()?.let {
-                launch {
-                    buscaProdutosUsuario()
-                }
+            launch {
+                usuario
+                    .filterNotNull()
+                    .collect {
+                        buscaProdutosUsuario()
+                    }
             }
         }
     }
@@ -73,11 +54,6 @@ class ListaProdutosActivity : AppCompatActivity() {
         produtoDao.buscaTodos().collect { produtos ->
             adapter.atualiza(produtos)
         }
-    }
-
-    private fun vaiParaLogin() {
-        vaiPara(LoginActivity::class.java)
-        finish()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -115,9 +91,7 @@ class ListaProdutosActivity : AppCompatActivity() {
             val sairDoApp = when (item.itemId) {
                 R.id.menu_lista_produtos_sair_app -> {
                     lifecycleScope.launch {
-                        dataStore.edit { preferences ->
-                            preferences.remove(usuarioLogadoPreferences)
-                        }
+                        deslogaUsuario()
                     }
                 }
 

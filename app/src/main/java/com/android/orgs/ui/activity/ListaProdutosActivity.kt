@@ -43,15 +43,15 @@ class ListaProdutosActivity : UsuarioBaseActivity() {
             launch {
                 usuario
                     .filterNotNull()
-                    .collect {
-                        buscaProdutosUsuario()
+                    .collect {usuario ->
+                        buscaProdutosUsuario(usuario.id)
                     }
             }
         }
     }
 
-    private suspend fun buscaProdutosUsuario() {
-        produtoDao.buscaTodos().collect { produtos ->
+    private suspend fun buscaProdutosUsuario(usuarioId: String) {
+        produtoDao.buscaTodosDoUsuario(usuarioId).collect { produtos ->
             adapter.atualiza(produtos)
         }
     }
@@ -160,7 +160,11 @@ class ListaProdutosActivity : UsuarioBaseActivity() {
         adapter.quandoClicaNoBotaoRemover = { produto ->
             lifecycleScope.launch {
                 produtoDao.remove(produto)
-                buscaProdutosUsuario()
+                usuario
+                    .filterNotNull()
+                    .collect {usuario ->
+                        buscaProdutosUsuario(usuario.id)
+                    }
             }
         }
     }

@@ -9,9 +9,11 @@ import java.math.BigDecimal
 @Entity
 @Parcelize
 data class Produto(
-    @PrimaryKey(autoGenerate = true) val id: Long = 0L,
+    @PrimaryKey(autoGenerate = true)
+    val id: Long = 0L,
     val nome: String,
     val descricao: String,
     val valor: BigDecimal,
-    val imagem: String? = null
+    val imagem: String? = null,
+    val usuarioId: String? = null
 ) : Parcelable

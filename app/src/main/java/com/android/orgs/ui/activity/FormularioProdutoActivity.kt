@@ -11,7 +11,7 @@ import com.android.orgs.model.Produto
 import com.android.orgs.ui.dialog.FormularioImagemDialog
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.math.BigDecimal
@@ -51,13 +51,7 @@ class FormularioProdutoActivity : UsuarioBaseActivity() {
                 }
         }
         tentaCarregarProduto()
-        lifecycleScope.launch {
-            usuario
-                .filterNotNull()
-                .collect {
-                    Log.i(TAG, "Usuario: $it")
-                }
-        }
+
     }
 
     override fun onResume() {
@@ -92,15 +86,17 @@ class FormularioProdutoActivity : UsuarioBaseActivity() {
         val botaoSalvar = binding.activityFormularioProdutoBotaoSalvar
 
         botaoSalvar.setOnClickListener {
-            val produtoNovo = criaProduto()
             lifecycleScope.launch(handler) {
-                produtoDao.salvar(produtoNovo)
-                finish()
+                usuario.firstOrNull()?.let { usuario ->
+                    val produtoNovo = criaProduto(usuario.id)
+                    produtoDao.salvar(produtoNovo)
+                    finish()
+                }
             }
         }
     }
 
-    private fun criaProduto(): Produto {
+    private fun criaProduto(usuarioId: String): Produto {
         val campoNome = binding.activityFormularioProdutoNome
         val nome = campoNome.text.toString()
         val campoDescricao = binding.activityFormularioProdutoDescricao
@@ -118,7 +114,8 @@ class FormularioProdutoActivity : UsuarioBaseActivity() {
             nome = nome,
             descricao = descricao,
             valor = valor,
-            imagem = url
+            imagem = url,
+            usuarioId = usuarioId
         )
     }
 }

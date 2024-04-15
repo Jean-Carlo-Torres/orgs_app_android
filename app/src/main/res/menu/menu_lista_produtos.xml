@@ -9,25 +9,25 @@
         <menu>
             <item
                     android:id="@+id/menu_lista_produtos_ordenar_nome_decrescente"
-                    android:title="nome decrescente" />
+                    android:title="@string/text_nome_decrescente" />
             <item
                     android:id="@+id/menu_lista_produtos_ordenar_nome_crescente"
-                    android:title="nome crescente" />
+                    android:title="@string/text_nome_crescente" />
             <item
                     android:id="@+id/menu_lista_produtos_ordenar_descricao_decrescente"
-                    android:title="descricao decrescente" />
+                    android:title="@string/text_descricao_decrescente" />
             <item
                     android:id="@+id/menu_lista_produtos_ordenar_descricao_crescente"
-                    android:title="descricao crescente" />
+                    android:title="@string/text_descricao_crescente" />
             <item
                     android:id="@+id/menu_lista_produtos_ordenar_valor_decrescente"
-                    android:title="valor decrescente" />
+                    android:title="@string/text_valor_decrescente" />
             <item
                     android:id="@+id/menu_lista_produtos_ordenar_valor_crescente"
-                    android:title="valor crescente" />
+                    android:title="@string/text_valor_crescente" />
             <item
                     android:id="@+id/menu_lista_produtos_ordenar_sem_ordem"
-                    android:title="Sem ordem" />
+                    android:title="@string/text_sem_ordem" />
         </menu>
     </item>
 

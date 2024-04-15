@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:layout_gravity="bottom|right"
-            android:text="Novo Produto"
+            android:text="@string/text_novo_produto"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:icon="@drawable/ic_adicionar_action"/>

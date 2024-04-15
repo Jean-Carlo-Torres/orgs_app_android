@@ -13,7 +13,6 @@ class PerfilUsuarioActivity : UsuarioBaseActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        title = "Perfil"
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         preencheCamposUsuario()

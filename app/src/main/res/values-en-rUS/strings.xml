@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="text_usuario">User</string>
+    <string name="text_senha">Password</string>
+    <string name="text_entrar">log on</string>
+    <string name="text_logo_orgs">Orgs app logo</string>
+    <string name="text_cadastrar_usuario">Register user</string>
+    <string name="text_nome">Name</string>
+    <string name="text_cadastrar">Register</string>
+    <string name="text_novo_produto">New Product</string>
+    <string name="text_descricao">Description</string>
+    <string name="text_valor">Value</string>
+    <string name="text_salvar">Save</string>
+    <string name="text_carregar">Load</string>
+    <string name="text_sair_do_app">Exit the app</string>
+    <string name="text_url_imagem">Image URL</string>
+    <string name="text_cadastrar_produto">Register Product</string>
+    <string name="text_perfil">Profile</string>
+    <string name="text_nome_decrescente">decrescent name</string>
+    <string name="text_nome_crescente">crescent name</string>
+    <string name="text_descricao_decrescente">decrescent description</string>
+    <string name="text_descricao_crescente">crescent description</string>
+    <string name="text_valor_decrescente">decrescent value</string>
+    <string name="text_valor_crescente">crescent value</string>
+    <string name="text_sem_ordem">No Order</string>
+    <string name="text_alterar_produto">Change Product</string>
+    <string name="text_inserir_imagem">Insert image</string>
+    <string name="text_cancelar">Cancel</string>
+</resources>

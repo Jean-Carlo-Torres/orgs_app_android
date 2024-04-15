@@ -3,6 +3,7 @@ package com.android.orgs.ui.dialog
 import android.content.Context
 import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
+import com.android.orgs.R
 import com.android.orgs.databinding.FormularioImagemBinding
 import com.android.orgs.extensions.tentaCarregarImagem
 
@@ -22,13 +23,13 @@ class FormularioImagemDialog(val context: Context) {
                     formularioImagemImagemview.tentaCarregarImagem(url)
                 }
                 AlertDialog.Builder(context)
-                    .setTitle("Inserir Imagem")
+                    .setTitle(context.resources.getString(R.string.text_inserir_imagem))
                     .setView(root)
                     .setPositiveButton("Ok") { _, _ ->
                         val url = formularioImagemUrl.text.toString()
                         quandoImagemCarregada(url)
                     }
-                    .setNegativeButton("Cancelar") { _, _ ->
+                    .setNegativeButton(context.resources.getString(R.string.text_cancelar)) { _, _ ->
 
                     }
                     .show()

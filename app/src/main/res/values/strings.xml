@@ -1,5 +1,30 @@
 <resources>
-    <string name="app_name">Orgs</string>
-    <string name="title_activity_login">LoginActivity</string>
-    <string name="title_activity_formulario_cadastro">FormularioCadastroActivity</string>
+    <string name="app_name" translatable="false">Orgs</string>
+
+    <string name="text_logo_orgs">Logo do app Orgs</string>
+    <string name="text_nome">Nome</string>
+    <string name="text_usuario">Usuário</string>
+    <string name="text_senha">Senha</string>
+    <string name="text_entrar">Entrar</string>
+    <string name="text_cadastrar">Cadastrar</string>
+    <string name="text_descricao">Descrição</string>
+    <string name="text_valor">Valor</string>
+    <string name="text_salvar">Salvar</string>
+    <string name="text_carregar">Carregar</string>
+    <string name="text_cancelar">Cancelar</string>
+    <string name="text_perfil">Perfil</string>
+    <string name="text_cadastrar_usuario">Cadastrar usuário</string>
+    <string name="text_cadastrar_produto">Cadastrar Produto</string>
+    <string name="text_alterar_produto">Alterar Produto</string>
+    <string name="text_novo_produto">Novo Produto</string>
+    <string name="text_sair_do_app">Sair do app</string>
+    <string name="text_url_imagem">URL da imagem</string>
+    <string name="text_inserir_imagem">Inserir Imagem</string>
+    <string name="text_nome_decrescente">nome decrescente</string>
+    <string name="text_nome_crescente">nome crescente</string>
+    <string name="text_descricao_decrescente">descricao decrescente</string>
+    <string name="text_descricao_crescente">descricao crescente</string>
+    <string name="text_valor_decrescente">valor decrescente</string>
+    <string name="text_valor_crescente">valor crescente</string>
+    <string name="text_sem_ordem">Sem ordem</string>
 </resources>

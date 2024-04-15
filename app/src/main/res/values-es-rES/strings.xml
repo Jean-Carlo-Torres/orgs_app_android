@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="text_logo_orgs">Logo de la aplicación Orgs</string>
+    <string name="text_nome">Nombre</string>
+    <string name="text_usuario">Usuario</string>
+    <string name="text_senha">Contraseña</string>
+    <string name="text_entrar">Ingresar</string>
+    <string name="text_cadastrar">Registrarse</string>
+    <string name="text_descricao">Descripción</string>
+    <string name="text_valor">Valor</string>
+    <string name="text_salvar">Guardar</string>
+    <string name="text_carregar">Cargar</string>
+    <string name="text_cancelar">Cancelar</string>
+    <string name="text_perfil">Perfil</string>
+    <string name="text_cadastrar_usuario">Registrar usuario</string>
+    <string name="text_cadastrar_produto">Registrar Producto</string>
+    <string name="text_alterar_produto">Cambiar Producto</string>
+    <string name="text_novo_produto">Nuevo Producto</string>
+    <string name="text_sair_do_app">Salir de la aplicación</string>
+    <string name="text_url_imagem">URL de la imagen</string>
+    <string name="text_inserir_imagem">Insertar Imagen</string>
+    <string name="text_nome_decrescente">nombre descendente</string>
+    <string name="text_nome_crescente">nombre ascendente</string>
+    <string name="text_descricao_decrescente">descripción descendente</string>
+    <string name="text_descricao_crescente">descripción ascendente</string>
+    <string name="text_valor_decrescente">valor descendente</string>
+    <string name="text_valor_crescente">valor ascendente</string>
+    <string name="text_sem_ordem">Sin orden</string>
+
+</resources>

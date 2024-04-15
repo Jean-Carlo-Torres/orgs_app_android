@@ -3,6 +3,7 @@ package com.android.orgs.ui.activity
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.lifecycleScope
+import com.android.orgs.R
 import com.android.orgs.database.OrgsAppDatabase
 import com.android.orgs.databinding.ActivityFormularioProdutoBinding
 import com.android.orgs.extensions.tentaCarregarImagem
@@ -40,7 +41,7 @@ class FormularioProdutoActivity : UsuarioBaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        title = "Cadastrar Produto"
+        title = getString(R.string.text_alterar_produto) 
         configuraBotaoSalvar()
 
         binding.activityFormularioProdutoImageview.setOnClickListener {
@@ -51,8 +52,8 @@ class FormularioProdutoActivity : UsuarioBaseActivity() {
                 }
         }
         tentaCarregarProduto()
-
     }
+
 
     override fun onResume() {
         super.onResume()
@@ -63,7 +64,6 @@ class FormularioProdutoActivity : UsuarioBaseActivity() {
         lifecycleScope.launch(handler) {
             produtoDao.buscaPorId(produtoId)?.let {
                 withContext(Dispatchers.Main) {
-                    title = "Alterar Produto"
                     preencheCampos(it)
                 }
             }

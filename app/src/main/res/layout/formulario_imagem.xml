@@ -24,7 +24,7 @@
                 android:id="@+id/formulario_imagem_botao_carregar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Carregar"
+                android:text="@string/text_carregar"
                 android:textAlignment="center"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -49,7 +49,7 @@
                     android:id="@+id/formulario_imagem_url"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="URL da imagem"
+                    android:hint="@string/text_url_imagem"
                     android:inputType="textUri"
             />
         </com.google.android.material.textfield.TextInputLayout>

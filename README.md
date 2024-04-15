@@ -5,6 +5,8 @@ App Android de simulação de um e-commerce de produtos naturais.
 
 ## 🔨 Funcionalidades do projeto
 
+### Telas de produto
+
 O projeto permite cadastrar, alterar e remover produtos com imagem, nome, descrição e valor. Os produtos salvos são apresentados em uma lista e podem ser visualizados ao realizar o clique.
 
 - Inserindo
@@ -18,6 +20,16 @@ O projeto permite cadastrar, alterar e remover produtos com imagem, nome, descri
 - Removendo
 
 <img src="github/removendo.gif">
+
+### Telas de Login e Cadastro de Usuários
+
+- Cadastro de novos usuários
+
+<img src ="github/cadastro.gif">
+
+- Login e perfil de usuário
+
+<img src ="github/acesso_e_perfil.gif">
 
 <hr>
 
@@ -41,6 +53,7 @@ Menus de opções para ordenar produtos por nome, descrição ou valor.
 
 - `Jetpack Room`: lib para persistência de dados em banco de dados interno com SQLite
 - `Entidade`: definição da tabela que será criada no banco de dados
+- `Relacionamento entre entidades`: Permitindo que cada usuário tenha uma lista de produtos
 - `DAO`: definição dos comportamentos com o banco de dados
     - **comportamentos definidos**: inserção, alteração, remoção e consultas de todos os registros e com filtro
 - `Database`: configuração para criar a conexão com o banco de dados

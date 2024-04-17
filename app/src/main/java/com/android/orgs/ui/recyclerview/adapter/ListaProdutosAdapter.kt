@@ -41,7 +41,6 @@ class ListaProdutosAdapter(
                 }.show()
                 true
             }
-
         }
 
         fun vincula(produto: Produto) {
@@ -53,13 +52,13 @@ class ListaProdutosAdapter(
             if (produto.nome.isNotBlank()) {
                 nome.text = produto.nome
             } else {
-                nome.text = "Produto sem nome"
+                nome.text = context.getString(R.string.text_produto_sem_nome)
             }
 
             if (produto.descricao.isNotBlank()) {
                 descricao.text = produto.descricao
             } else {
-                descricao.text = "Produto sem descrição"
+                descricao.text = context.getString(R.string.text_produto_sem_descricao)
             }
 
             val valorEmMoeda: String = produto.valor.formatarParaMoedaBrasileira()

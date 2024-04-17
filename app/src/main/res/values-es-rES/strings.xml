@@ -26,5 +26,8 @@
     <string name="text_valor_decrescente">valor descendente</string>
     <string name="text_valor_crescente">valor ascendente</string>
     <string name="text_sem_ordem">Sin orden</string>
-
+    <string name="text_editar">Editar</string>
+    <string name="text_remover">Eliminar</string>
+    <string name="text_produto_sem_nome">Producto sin nombre</string>
+    <string name="text_produto_sem_descricao">Producto sin descripción</string>
 </resources>

@@ -41,7 +41,7 @@ class FormularioProdutoActivity : UsuarioBaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        title = getString(R.string.text_alterar_produto) 
+        title = getString(R.string.text_alterar_produto)
         configuraBotaoSalvar()
 
         binding.activityFormularioProdutoImageview.setOnClickListener {

@@ -13,6 +13,10 @@
     <string name="text_carregar">Carregar</string>
     <string name="text_cancelar">Cancelar</string>
     <string name="text_perfil">Perfil</string>
+    <string name="text_editar">Editar</string>
+    <string name="text_remover">Remover</string>
+    <string name="text_produto_sem_nome">Produto sem nome</string>
+    <string name="text_produto_sem_descricao">Produto sem descrição</string>
     <string name="text_cadastrar_usuario">Cadastrar usuário</string>
     <string name="text_cadastrar_produto">Cadastrar Produto</string>
     <string name="text_alterar_produto">Alterar Produto</string>

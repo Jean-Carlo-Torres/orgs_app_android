@@ -26,4 +26,9 @@
     <string name="text_alterar_produto">Change Product</string>
     <string name="text_inserir_imagem">Insert image</string>
     <string name="text_cancelar">Cancel</string>
+    <string name="text_editar">Edit</string>
+    <string name="text_remover">Remove</string>
+    <string name="text_produto_sem_nome">Product without name</string>
+    <string name="text_produto_sem_descricao">Product without description</string>
+
 </resources>

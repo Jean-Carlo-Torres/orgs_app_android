@@ -9,39 +9,62 @@
         <menu>
             <item
                     android:id="@+id/menu_lista_produtos_ordenar_nome_decrescente"
-                    android:title="@string/text_nome_decrescente" />
+                    android:title="@string/text_nome_decrescente"/>
             <item
                     android:id="@+id/menu_lista_produtos_ordenar_nome_crescente"
-                    android:title="@string/text_nome_crescente" />
+                    android:title="@string/text_nome_crescente"/>
             <item
                     android:id="@+id/menu_lista_produtos_ordenar_descricao_decrescente"
-                    android:title="@string/text_descricao_decrescente" />
+                    android:title="@string/text_descricao_decrescente"/>
             <item
                     android:id="@+id/menu_lista_produtos_ordenar_descricao_crescente"
-                    android:title="@string/text_descricao_crescente" />
+                    android:title="@string/text_descricao_crescente"/>
             <item
                     android:id="@+id/menu_lista_produtos_ordenar_valor_decrescente"
-                    android:title="@string/text_valor_decrescente" />
+                    android:title="@string/text_valor_decrescente"/>
             <item
                     android:id="@+id/menu_lista_produtos_ordenar_valor_crescente"
-                    android:title="@string/text_valor_crescente" />
+                    android:title="@string/text_valor_crescente"/>
             <item
                     android:id="@+id/menu_lista_produtos_ordenar_sem_ordem"
-                    android:title="@string/text_sem_ordem" />
+                    android:title="@string/text_sem_ordem"/>
         </menu>
     </item>
 
     <item
-            android:id="@+id/menu_lista_produtos_perfil_usuario"
-            android:title="Perfil de Usuário"
-            android:icon="@drawable/ic_perfil_action"
-            app:showAsAction="ifRoom"/>
+            android:id="@+id/menu_lista_produtos_configuracoes"
+            android:title="Configurações"
+            android:icon="@drawable/ic_configuracao_circle_action"
+            app:showAsAction="ifRoom">
+        <menu>
+            <item
+                    android:id="@+id/menu_lista_produtos_idiomas"
+                    android:title="Idioma">
+                <menu>
+                    <item
+                            android:id="@+id/menu_lista_produtos_idioma_pt_br"
+                            android:title="Português (BR)"
+                    />
+                    <item
+                            android:id="@+id/menu_lista_produtos_idioma_en_usa"
+                            android:title="Inglês (USA)"
+                    />
+                    <item
+                            android:id="@+id/menu_lista_produtos_idioma_es"
+                            android:title="Espanhol"
+                    />
+                </menu>
+            </item>
+            <item
+                    android:id="@+id/menu_lista_produtos_perfil_usuario"
+                    android:title="Perfil de Usuário"
+            />
+            <item
+                    android:id="@+id/menu_lista_produtos_sair_app"
+                    android:title="Sair do App"
+            />
+        </menu>
+    </item>
 
-    <item
-            android:id="@+id/menu_lista_produtos_sair_app"
-            android:title="Sair do App"
-            android:icon="@drawable/ic_sair_do_app_action"
-            app:showAsAction="ifRoom"
-    />
 
 </menu>

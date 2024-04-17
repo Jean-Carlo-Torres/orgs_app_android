@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
+import java.util.*
 
 abstract class UsuarioBaseActivity : AppCompatActivity() {
 
@@ -58,5 +59,13 @@ abstract class UsuarioBaseActivity : AppCompatActivity() {
             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         }
         finish()
+    }
+
+    protected fun changeLanguage(locale: Locale) {
+        val resources = applicationContext.resources
+        val configuration = resources.configuration
+        configuration.setLocale(locale)
+        resources.updateConfiguration(configuration, resources.displayMetrics)
+        recreate()
     }
 }

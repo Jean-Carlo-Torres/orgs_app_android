@@ -16,6 +16,7 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
+import java.util.*
 
 private val TAG = "ListaProdutosActivity"
 
@@ -113,13 +114,27 @@ class ListaProdutosActivity : UsuarioBaseActivity() {
                 else -> null
             }
 
+            val alterarIdioma = when (item.itemId) {
+                R.id.menu_lista_produtos_idioma_pt_br -> {
+                    changeLanguage(Locale("pt", "BR"))
+                    true
+                }
+                R.id.menu_lista_produtos_idioma_en_usa -> {
+                    changeLanguage(Locale("en", "US"))
+                    true
+                }
+                R.id.menu_lista_produtos_idioma_es -> {
+                    changeLanguage(Locale("es"))
+                    true
+                }
+                else -> super.onOptionsItemSelected(item)
+            }
+
+
             produtosOrdenado?.let {
                 adapter.atualiza(it)
             }
             sairDoApp?.let {
-                finish()
-            }
-            ExibirPerfilUsuario?.let {
                 finish()
             }
         }

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context=".ui.activity.LoginActivity"
+            android:background="@drawable/background">
+
+        <ImageView
+                android:id="@+id/activity_inicial_deslogado_logo"
+                android:layout_width="86dp"
+                android:layout_height="38dp"
+                android:layout_margin="20dp"
+                app:srcCompat="@drawable/orgs_logo_splash"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:contentDescription="@string/text_logo_orgs"
+        />
+
+        <TextView
+                android:id="@+id/activity_inicial_deslogado_titulo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="@string/text_bem_vindo"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:textColor="@color/blackLight"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/activity_inicial_deslogado_logo"
+        />
+
+        <TextView
+                android:id="@+id/activity_inicial_deslogado_subtexto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:text="@string/text_explore_pelos_melhores_produtos"
+                android:textSize="16sp"
+                android:textColor="@color/blackLight"
+                app:layout_constraintStart_toStartOf="@id/activity_inicial_deslogado_titulo"
+                app:layout_constraintEnd_toEndOf="@id/activity_inicial_deslogado_titulo"
+                app:layout_constraintTop_toBottomOf="@id/activity_inicial_deslogado_titulo"
+        />
+
+
+        <Button
+                android:id="@+id/activity_inicial_deslogado_botao_login"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:padding="16dp"
+                android:text="@string/text_entrar"
+                app:layout_constraintEnd_toEndOf="@id/activity_inicial_deslogado_subtexto"
+                app:layout_constraintStart_toStartOf="@id/activity_inicial_deslogado_subtexto"
+                app:layout_constraintTop_toBottomOf="@id/activity_inicial_deslogado_subtexto"/>
+
+
+        <Button
+                android:id="@+id/activity_login_botao_cadastrar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/transparent"
+                android:text="@string/text_cadastrar_usuario"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/activity_inicial_deslogado_botao_login"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/activity_inicial_deslogado_botao_login"
+                app:layout_constraintTop_toBottomOf="@id/activity_inicial_deslogado_botao_login"
+                app:layout_constraintVertical_bias="0.0"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

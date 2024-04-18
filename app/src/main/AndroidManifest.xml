@@ -27,7 +27,13 @@
         </activity>
         <activity
                 android:name=".ui.activity.ListaProdutosActivity"
-                android:exported="true"/>
+                android:exported="true"
+        />
+        <activity
+                android:name=".ui.activity.TelaInicialDeslogadoActivity"
+                android:exported="true"
+                android:theme="@style/Theme.Orgs.NoActionBar"
+        />
         <activity
                 android:name=".ui.activity.LoginActivity"
                 android:theme="@style/Theme.Orgs.NoActionBar">
@@ -39,13 +45,17 @@
                 android:theme="@style/Theme.Orgs">
         </activity>
         <activity
-                android:name=".ui.activity.DetalhesProdutoActivity"/>
+                android:name=".ui.activity.DetalhesProdutoActivity"
+        />
         <activity
                 android:name=".ui.activity.FormularioProdutoActivity"
                 android:label="@string/text_cadastrar_produto"
-                android:theme="@style/Theme.Orgs"/>
-        <activity android:name=".ui.activity.PerfilUsuarioActivity"
-                  android:label="@string/text_perfil"/>
+                android:theme="@style/Theme.Orgs"
+        />
+        <activity
+                android:name=".ui.activity.PerfilUsuarioActivity"
+                android:label="@string/text_perfil"
+        />
 
         <meta-data
                 android:name="preloaded_fonts"

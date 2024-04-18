@@ -30,4 +30,15 @@
     <string name="text_remover">Eliminar</string>
     <string name="text_produto_sem_nome">Producto sin nombre</string>
     <string name="text_produto_sem_descricao">Producto sin descripción</string>
+    <string name="text_bem_vindo">Bienvenido(a) a Orgs</string>
+    <string name="text_bem_vindo_de_volta">Bienvenido(a) de vuelta</string>
+    <string name="text_explore_pelos_melhores_produtos">Explora los mejores productos orgánicos.</string>
+    <string name="text_preencha_as_informacoes">Completa la información a continuación</string>
+    <string name="text_acesse_sua_conta">Accede a tu cuenta usando tu nombre de usuario registrado.</string>
+    <string name="text_ordenar">Ordenar</string>
+    <string name="text_configuracoes">Configuraciones</string>
+    <string name="text_idioma">Idioma</string>
+    <string name="text_idioma_en_usa">Inglés (USA)</string>
+    <string name="text_idioma_es">Español</string>
+    <string name="text_idioma_pt_br">Portugués (BR)</string>
 </resources>

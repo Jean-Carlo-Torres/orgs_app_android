@@ -55,7 +55,7 @@ abstract class UsuarioBaseActivity : AppCompatActivity() {
     }
 
     private fun vaiParaLogin() {
-        vaiPara(LoginActivity::class.java) {
+        vaiPara(TelaInicialDeslogadoActivity::class.java) {
             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         }
         finish()

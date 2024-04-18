@@ -4,7 +4,7 @@
     <item
             android:id="@+id/menu_lista_produtos_ordenar"
             android:icon="@drawable/ic_listar_action"
-            android:title="ordenar"
+            android:title="@string/text_ordenar"
             app:showAsAction="ifRoom">
         <menu>
             <item
@@ -33,35 +33,35 @@
 
     <item
             android:id="@+id/menu_lista_produtos_configuracoes"
-            android:title="Configurações"
+            android:title="@string/text_configuracoes"
             android:icon="@drawable/ic_configuracao_circle_action"
             app:showAsAction="ifRoom">
         <menu>
             <item
                     android:id="@+id/menu_lista_produtos_idiomas"
-                    android:title="Idioma">
+                    android:title="@string/text_idioma">
                 <menu>
                     <item
                             android:id="@+id/menu_lista_produtos_idioma_pt_br"
-                            android:title="Português (BR)"
+                            android:title="@string/text_idioma_pt_br"
                     />
                     <item
                             android:id="@+id/menu_lista_produtos_idioma_en_usa"
-                            android:title="Inglês (USA)"
+                            android:title="@string/text_idioma_en_usa"
                     />
                     <item
                             android:id="@+id/menu_lista_produtos_idioma_es"
-                            android:title="Espanhol"
+                            android:title="@string/text_idioma_es"
                     />
                 </menu>
             </item>
             <item
                     android:id="@+id/menu_lista_produtos_perfil_usuario"
-                    android:title="Perfil de Usuário"
+                    android:title="@string/text_perfil"
             />
             <item
                     android:id="@+id/menu_lista_produtos_sair_app"
-                    android:title="Sair do App"
+                    android:title="@string/text_sair_do_app"
             />
         </menu>
     </item>

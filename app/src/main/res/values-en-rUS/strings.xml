@@ -30,5 +30,16 @@
     <string name="text_remover">Remove</string>
     <string name="text_produto_sem_nome">Product without name</string>
     <string name="text_produto_sem_descricao">Product without description</string>
+    <string name="text_bem_vindo">Welcome to Orgs</string>
+    <string name="text_bem_vindo_de_volta">Welcome back</string>
+    <string name="text_explore_pelos_melhores_produtos">Explore the best organic products.</string>
+    <string name="text_preencha_as_informacoes">Fill in the information below</string>
+    <string name="text_acesse_sua_conta">Access your account using your registered username.</string>
+    <string name="text_ordenar">Sort</string>
+    <string name="text_configuracoes">Settings</string>
+    <string name="text_idioma">Language</string>
+    <string name="text_idioma_en_usa">English (USA)</string>
+    <string name="text_idioma_es">Spanish</string>
+    <string name="text_idioma_pt_br">Portuguese (BR)</string>
 
 </resources>

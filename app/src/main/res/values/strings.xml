@@ -2,6 +2,11 @@
     <string name="app_name" translatable="false">Orgs</string>
 
     <string name="text_logo_orgs">Logo do app Orgs</string>
+    <string name="text_bem_vindo">Bem-vindo(a) ao Orgs</string>
+    <string name="text_bem_vindo_de_volta">Bem-vindo(a) de volta</string>
+    <string name="text_explore_pelos_melhores_produtos">Explore pelos melhores produtores orgânicos.</string>
+    <string name="text_preencha_as_informacoes">Preencha as informações abaixo</string>
+    <string name="text_acesse_sua_conta">Acesse sua conta usando seu usuário cadastrado.</string>
     <string name="text_nome">Nome</string>
     <string name="text_usuario">Usuário</string>
     <string name="text_senha">Senha</string>
@@ -12,9 +17,15 @@
     <string name="text_salvar">Salvar</string>
     <string name="text_carregar">Carregar</string>
     <string name="text_cancelar">Cancelar</string>
-    <string name="text_perfil">Perfil</string>
+    <string name="text_perfil">Perfil de Usuário</string>
     <string name="text_editar">Editar</string>
     <string name="text_remover">Remover</string>
+    <string name="text_ordenar">Ordenar</string>
+    <string name="text_configuracoes">Configurações</string>
+    <string name="text_idioma">Idioma</string>
+    <string name="text_idioma_en_usa">Inglês (USA)</string>
+    <string name="text_idioma_es">Espanhol</string>
+    <string name="text_idioma_pt_br">Português (BR)</string>
     <string name="text_produto_sem_nome">Produto sem nome</string>
     <string name="text_produto_sem_descricao">Produto sem descrição</string>
     <string name="text_cadastrar_usuario">Cadastrar usuário</string>

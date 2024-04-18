@@ -25,7 +25,6 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        configuraBotaoCadastrar()
         configuraBotaoEntrar()
     }
 
@@ -49,10 +48,6 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun configuraBotaoCadastrar() {
-        binding.activityLoginBotaoCadastrar.setOnClickListener {
-            vaiPara(FormularioCadastroUsuarioActivity::class.java)
-        }
-    }
+
 
 }

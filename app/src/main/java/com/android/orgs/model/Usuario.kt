@@ -11,9 +11,13 @@ data class Usuario(
     val senha: String
 ) {
     fun valoresEhValido(): Boolean {
-        val isNotEmptyValues: Boolean = id.isNotEmpty() && nome.isNotEmpty() && senha.isNotEmpty()
-        val lengthValues: Boolean =
-            id.length in 3..16 && nome.length in 3..16 && senha.length in 8..16
-        return isNotEmptyValues && lengthValues
+        val idIsValid: Boolean = id.isNotEmpty() && id.matches(Regex("[^\\s]+")) && id.length in 3..16
+        val nomeIsValid: Boolean = nome.isNotEmpty() && nome.matches(Regex("[a-zA-ZÀ-ÖØ-öø-ÿ\\s]+")) && nome.length in 3..16
+        val senhaIsValid: Boolean = senha.isNotEmpty() && senha.matches(Regex("^(?=.*[\\p{Punct}])(?=.*[a-zA-Z])(?=.*\\d).{8,16}$")) && senha.length in 8..16
+
+        println("idIsValid: $idIsValid, nomeIsValid: $nomeIsValid, senhaIsValid: $senhaIsValid")
+
+        return idIsValid && nomeIsValid && senhaIsValid
     }
+
 }

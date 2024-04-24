@@ -1,31 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true"
-            android:background="@drawable/background">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:context=".ui.activity.FormularioCadastroUsuarioActivity"
-    >
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".ui.activity.FormularioCadastroUsuarioActivity">
 
         <TextView
-                android:id="@+id/activity_formulario_cadastro_titulo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:text="@string/text_bem_vindo"
-                android:textSize="26sp"
-                android:textStyle="bold"
-                android:textColor="@color/blackLight"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-        />
+            android:id="@+id/activity_formulario_cadastro_titulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="@string/text_bem_vindo"
+            android:textColor="@color/blackLight"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/activity_formulario_cadastro_subtexto"
             android:layout_width="match_parent"
@@ -33,85 +32,90 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:text="@string/text_preencha_as_informacoes"
-            android:textSize="16sp"
             android:textColor="@color/blackLight"
-            app:layout_constraintStart_toStartOf="@id/activity_formulario_cadastro_titulo"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@id/activity_formulario_cadastro_titulo"
-            app:layout_constraintTop_toBottomOf="@id/activity_formulario_cadastro_titulo"
-            />
+            app:layout_constraintStart_toStartOf="@id/activity_formulario_cadastro_titulo"
+            app:layout_constraintTop_toBottomOf="@id/activity_formulario_cadastro_titulo" />
 
 
         <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout_usuario"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/activity_formulario_cadastro_subtexto"
-                app:boxStrokeColor="@color/blackLight"
-        >
+            android:id="@+id/textInputLayout_usuario"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:boxStrokeColor="@color/blackLight"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/activity_formulario_cadastro_subtexto">
 
             <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/activity_formulario_cadastro_usuario"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/text_usuario"
-                    android:inputType="text"
-            />
+                android:id="@+id/activity_formulario_cadastro_usuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/text_usuario"
+                android:inputType="text"
+                android:textColor="@color/blackLight"
+                android:textColorHint="@color/blackLight" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputlayout_nome"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="@id/textInputLayout_usuario"
-                app:layout_constraintStart_toStartOf="@id/textInputLayout_usuario"
-                app:layout_constraintTop_toBottomOf="@id/textInputLayout_usuario"
-                app:boxStrokeColor="@color/blackLight">
+            android:id="@+id/textInputlayout_nome"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:boxStrokeColor="@color/blackLight"
+            app:layout_constraintEnd_toEndOf="@id/textInputLayout_usuario"
+            app:layout_constraintStart_toStartOf="@id/textInputLayout_usuario"
+            app:layout_constraintTop_toBottomOf="@id/textInputLayout_usuario">
 
             <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/activity_formulario_cadastro_nome"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/text_nome"
-                    android:inputType="text"/>
+                android:id="@+id/activity_formulario_cadastro_nome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/text_nome"
+                android:inputType="text"
+                android:textColor="@color/blackLight"
+                android:textColorHint="@color/blackLight"
+                />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputlayout_senha"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="@id/textInputlayout_nome"
-                app:layout_constraintStart_toStartOf="@id/textInputlayout_nome"
-                app:layout_constraintTop_toBottomOf="@id/textInputlayout_nome"
-                app:boxStrokeColor="@color/blackLight">
+            android:id="@+id/textInputlayout_senha"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:boxStrokeColor="@color/blackLight"
+            app:layout_constraintEnd_toEndOf="@id/textInputlayout_nome"
+            app:layout_constraintStart_toStartOf="@id/textInputlayout_nome"
+            app:layout_constraintTop_toBottomOf="@id/textInputlayout_nome"
+            >
 
             <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/activity_formulario_cadastro_senha"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/text_senha"
-                    android:inputType="textPassword"/>
+                android:id="@+id/activity_formulario_cadastro_senha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/text_senha"
+                android:inputType="textPassword"
+                android:textColor="@color/blackLight"
+                android:textColorHint="@color/blackLight" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-                android:id="@+id/activity_formulario_cadastro_botao_cadastrar"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:padding="16dp"
-                android:text="@string/text_cadastrar"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@id/textInputlayout_senha"
-                app:layout_constraintStart_toStartOf="@id/textInputlayout_senha"
-                app:layout_constraintTop_toBottomOf="@id/textInputlayout_senha"
-                app:layout_constraintVertical_bias="0.0"/>
+            android:id="@+id/activity_formulario_cadastro_botao_cadastrar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:padding="16dp"
+            android:text="@string/text_cadastrar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/textInputlayout_senha"
+            app:layout_constraintStart_toStartOf="@id/textInputlayout_senha"
+            app:layout_constraintTop_toBottomOf="@id/textInputlayout_senha"
+            app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

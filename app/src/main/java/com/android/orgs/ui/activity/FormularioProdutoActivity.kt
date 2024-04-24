@@ -89,8 +89,12 @@ class FormularioProdutoActivity : UsuarioBaseActivity() {
             lifecycleScope.launch(handler) {
                 usuario.firstOrNull()?.let { usuario ->
                     val produtoNovo = criaProduto(usuario.id)
-                    produtoDao.salvar(produtoNovo)
-                    finish()
+                    if (produtoNovo.valorEhValido) {
+                        produtoDao.salvar(produtoNovo)
+                        finish()
+                    } else {
+                        toast("Falha ao salvar produto. \nVerifique as informações inseridas!")
+                    }
                 }
             }
         }

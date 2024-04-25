@@ -19,5 +19,4 @@ data class Usuario(
 
         return idIsValid && nomeIsValid && senhaIsValid
     }
-
 }

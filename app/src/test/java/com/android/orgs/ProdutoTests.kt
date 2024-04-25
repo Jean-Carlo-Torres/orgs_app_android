@@ -1,14 +1,15 @@
 package com.android.orgs
 
 import com.android.orgs.model.Produto
-import org.junit.Assert
+import org.amshove.kluent.shouldBeFalse
+import org.amshove.kluent.shouldBeTrue
 import org.junit.Test
 import java.math.BigDecimal
 
-class TestaProduto {
+class ProdutoTests {
 
     @Test
-    fun aoCriarUmProdutoComValorMenorOuIgualAZeroDeveRetornarFalso() {
+    fun `deve retornar false quando valor do produto for menor ou igual a zero`() {
         val produtoValido = Produto(
             nome = "Cesta de Frutas",
             descricao = "Cesta de frutas com diversas frutas",
@@ -28,14 +29,14 @@ class TestaProduto {
         val valorEhValido = produtoValido.valorEhValido
         val valorEhIgualAZero = produtoComValorZero.valorEhValido
         val valorEhMenorQueZero = produtoComValorNegativo.valorEhValido
-
-        Assert.assertTrue(valorEhValido)
-        Assert.assertFalse(valorEhIgualAZero)
-        Assert.assertFalse(valorEhMenorQueZero)
+        
+        valorEhValido.shouldBeTrue()
+        valorEhIgualAZero.shouldBeFalse()
+        valorEhMenorQueZero.shouldBeFalse()
     }
 
     @Test
-    fun aoCriarUmProdutoComValorMaiorQueMilDeveRetornarFalso() {
+    fun `deve retornar false se o valor do produto for maior que mil`() {
         val produtoInvalido = Produto(
             nome = "Cesta de Frutas",
             descricao = "Cesta de frutas com diversas frutas",
@@ -44,6 +45,6 @@ class TestaProduto {
 
         val valorEhValido = produtoInvalido.valorEhValido
 
-        Assert.assertFalse(valorEhValido)
+        valorEhValido.shouldBeFalse()
     }
 }

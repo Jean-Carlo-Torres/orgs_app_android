@@ -1,13 +1,14 @@
 package com.android.orgs
 
 import com.android.orgs.model.Usuario
-import org.junit.Assert
+import org.amshove.kluent.shouldBeFalse
+import org.amshove.kluent.shouldBeTrue
 import org.junit.Test
 
-class TestaUsuario {
+class UsuarioTests {
 
     @Test
-    fun testaCadastroDeUsuarioAoInserirOsDados() {
+    fun `deve retornar true se as informacoes estiverem validas`() {
         val usuarioValido = Usuario(
             id = "ana2002",
             nome = "Ana Amelia",
@@ -15,11 +16,11 @@ class TestaUsuario {
         )
         val usuarioEhValido = usuarioValido.valoresEhValido()
 
-        Assert.assertTrue(usuarioEhValido)
+        usuarioEhValido.shouldBeTrue()
     }
 
     @Test
-    fun testaCadastroDeUsuarioAoInserirOsDadosComSenhaInvalida() {
+    fun `deve retornar false se a senha for invalida`() {
         val usuarioValido = Usuario(
             id = "ana2002",
             nome = "Ana Amelia",
@@ -27,11 +28,11 @@ class TestaUsuario {
         )
         val usuarioEhValido = usuarioValido.valoresEhValido()
 
-        Assert.assertFalse(usuarioEhValido)
+        usuarioEhValido.shouldBeFalse()
     }
 
     @Test
-    fun testaCadastroDeUsuarioAoInserirOsDadosComIdInvalido() {
+    fun `deve retornar false se o id for invalida`() {
         val usuarioValido = Usuario(
             id = "an",
             nome = "Ana Amelia",
@@ -39,11 +40,11 @@ class TestaUsuario {
         )
         val usuarioEhValido = usuarioValido.valoresEhValido()
 
-        Assert.assertFalse(usuarioEhValido)
+        usuarioEhValido.shouldBeFalse()
     }
 
     @Test
-    fun testaCadastroDeUsuarioAoInserirOsDadosComNomeInvalido() {
+    fun `deve retornar false se o nome for invalida`() {
         val usuarioValido = Usuario(
             id = "ana2002",
             nome = "An",
@@ -51,6 +52,6 @@ class TestaUsuario {
         )
         val usuarioEhValido = usuarioValido.valoresEhValido()
 
-        Assert.assertFalse(usuarioEhValido)
+        usuarioEhValido.shouldBeFalse()
     }
 }

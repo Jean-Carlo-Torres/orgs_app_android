@@ -95,4 +95,5 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1-Beta")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
+    testImplementation ("org.amshove.kluent:kluent-android:1.72")
 }

@@ -96,4 +96,5 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
     testImplementation ("org.amshove.kluent:kluent-android:1.72")
+    testImplementation ("io.mockk:mockk-android:1.13.10")
 }

@@ -8,9 +8,6 @@
       <entry key="app">
         <State />
       </entry>
-      <entry key="deve mostrar o nome do aplicatico()">
-        <State />
-      </entry>
       <entry key="deveMostrarCamposNecessariosParaCriarUmProduto()">
         <State />
       </entry>
@@ -18,6 +15,9 @@
         <State />
       </entry>
       <entry key="deveSalvarProdutoComSucesso()">
+        <State />
+      </entry>
+      <entry key="deveSerCapazDeEditarUmProduto()">
         <State />
       </entry>
     </value>

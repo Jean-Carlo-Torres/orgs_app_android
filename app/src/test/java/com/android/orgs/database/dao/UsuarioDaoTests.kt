@@ -1,6 +1,5 @@
-package com.android.orgs
+package com.android.orgs.database.dao
 
-import com.android.orgs.database.dao.UsuarioDao
 import com.android.orgs.model.Usuario
 import io.mockk.coEvery
 import io.mockk.coVerify

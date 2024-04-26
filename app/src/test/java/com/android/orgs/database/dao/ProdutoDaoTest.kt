@@ -1,4 +1,4 @@
-package com.android.orgs
+package com.android.orgs.database.dao
 
 import com.android.orgs.database.dao.ProdutoDao
 import com.android.orgs.model.Produto

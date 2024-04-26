@@ -2,7 +2,22 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
+      <entry key="ProdutoActivityTest">
+        <State />
+      </entry>
       <entry key="app">
+        <State />
+      </entry>
+      <entry key="deve mostrar o nome do aplicatico()">
+        <State />
+      </entry>
+      <entry key="deveMostrarCamposNecessariosParaCriarUmProduto()">
+        <State />
+      </entry>
+      <entry key="deveMostrarONomeDoAplicativo()">
+        <State />
+      </entry>
+      <entry key="deveSalvarProdutoComSucesso()">
         <State />
       </entry>
     </value>

@@ -3,6 +3,7 @@
     <string name="text_logo_orgs">Logo de la aplicación Orgs</string>
     <string name="text_nome">Nombre</string>
     <string name="text_usuario">Usuario</string>
+    <string name="text_email">Email</string>
     <string name="text_senha">Contraseña</string>
     <string name="text_entrar">Ingresar</string>
     <string name="text_cadastrar">Registrarse</string>

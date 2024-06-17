@@ -9,6 +9,7 @@
     <string name="text_acesse_sua_conta">Acesse sua conta usando seu usuário cadastrado.</string>
     <string name="text_nome">Nome</string>
     <string name="text_usuario">Usuário</string>
+    <string name="text_email">Email</string>
     <string name="text_senha">Senha</string>
     <string name="text_entrar">Entrar</string>
     <string name="text_cadastrar">Cadastrar</string>

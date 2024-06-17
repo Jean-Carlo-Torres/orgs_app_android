@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="text_usuario">User</string>
+    <string name="text_email">Email</string>
     <string name="text_senha">Password</string>
     <string name="text_entrar">log on</string>
     <string name="text_logo_orgs">Orgs app logo</string>

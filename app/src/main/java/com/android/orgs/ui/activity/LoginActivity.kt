@@ -9,7 +9,6 @@ import com.android.orgs.databinding.ActivityLoginBinding
 import com.android.orgs.extensions.toast
 import com.android.orgs.extensions.vaiPara
 import com.android.orgs.preferences.dataStore
-import com.android.orgs.preferences.usuarioLogadoPreferences
 import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
@@ -40,7 +39,7 @@ class LoginActivity : AppCompatActivity() {
         lifecycleScope.launch {
             usuarioDao.autentica(usuario, senha)?.let { usuario ->
                 dataStore.edit { preferences ->
-                    preferences[usuarioLogadoPreferences] = usuario.id
+//                    preferences[usuarioLogadoPreferences] = usuario.id
                 }
                 vaiPara(ListaProdutosActivity::class.java)
                 finish()

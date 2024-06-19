@@ -88,13 +88,13 @@ class FormularioProdutoActivity : UsuarioBaseActivity() {
         botaoSalvar.setOnClickListener {
             lifecycleScope.launch(handler) {
                 usuario.firstOrNull()?.let { usuario ->
-                    val produtoNovo = criaProduto(usuario.id)
-                    if (produtoNovo.valorEhValido) {
-                        produtoDao.salvar(produtoNovo)
-                        finish()
-                    } else {
-                        toast("Falha ao salvar produto. \nVerifique as informações inseridas!")
-                    }
+//                    val produtoNovo = criaProduto(usuario.id)
+//                    if (produtoNovo.valorEhValido) {
+//                        produtoDao.salvar(produtoNovo)
+//                        finish()
+//                    } else {
+//                        toast("Falha ao salvar produto. \nVerifique as informações inseridas!")
+//                    }
                 }
             }
         }

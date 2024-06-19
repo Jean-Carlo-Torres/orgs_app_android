@@ -22,7 +22,7 @@ class PerfilUsuarioActivity : UsuarioBaseActivity() {
     private fun preencheCamposUsuario() {
         lifecycleScope.launch {
             usuario.filterNotNull().collect { usuarioLogado ->
-                binding.perfilUsuarioId.text = usuarioLogado.id
+//                binding.perfilUsuarioId.text = usuarioLogado.id
                 binding.perfilUsuarioUsuario.text = usuarioLogado.nome
             }
         }

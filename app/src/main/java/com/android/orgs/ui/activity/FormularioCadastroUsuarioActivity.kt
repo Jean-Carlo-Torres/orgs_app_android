@@ -28,8 +28,8 @@ class FormularioCadastroUsuarioActivity : AppCompatActivity() {
 
     private fun configuraBotaoCadastrar() {
         binding.activityFormularioCadastroBotaoCadastrar.setOnClickListener {
-            val novoUsuario = criaUsuario()
-            cadastraUsuario(novoUsuario)
+//            val novoUsuario = criaUsuario()
+//            cadastraUsuario(novoUsuario)
         }
     }
 
@@ -45,10 +45,10 @@ class FormularioCadastroUsuarioActivity : AppCompatActivity() {
         }
     }
 
-    private fun criaUsuario(): Usuario {
-        val usuario = binding.activityFormularioCadastroUsuario.text.toString()
-        val nome = binding.activityFormularioCadastroNome.text.toString()
-        val senha = binding.activityFormularioCadastroSenha.text.toString()
-        return Usuario(usuario, nome, senha)
-    }
+//    private fun criaUsuario(): Usuario {
+//        val usuario = binding.activityFormularioCadastroUsuario.text.toString()
+//        val nome = binding.activityFormularioCadastroNome.text.toString()
+//        val senha = binding.activityFormularioCadastroSenha.text.toString()
+//        return Usuario(usuario, nome, senha)
+//    }
 }

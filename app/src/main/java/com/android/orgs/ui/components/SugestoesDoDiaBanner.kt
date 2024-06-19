@@ -40,7 +40,7 @@ fun SugestoesDoDiaBanner(
 ) {
     Row(
         modifier = Modifier
-            .shadow(8.dp, RoundedCornerShape(16.dp))
+            .shadow(4.dp, RoundedCornerShape(16.dp))
             .clip(RoundedCornerShape(16.dp))
             .fillMaxWidth()
             .height(108.dp)

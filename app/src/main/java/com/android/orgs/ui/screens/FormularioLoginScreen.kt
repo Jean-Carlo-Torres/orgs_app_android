@@ -1,5 +1,6 @@
 package com.android.orgs.ui.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -15,9 +16,15 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -28,9 +35,19 @@ import androidx.navigation.NavController
 import com.android.orgs.R
 import com.android.orgs.ui.components.ButtonDefault
 import com.android.orgs.ui.components.CustomTextField
+import com.android.orgs.viewmodels.UserViewModel
+import kotlinx.coroutines.launch
 
 @Composable
-fun FormularioLoginScreen(navController: NavController?) {
+fun FormularioLoginScreen(navController: NavController?, userViewModel: UserViewModel?) {
+
+    var email by remember { mutableStateOf("") }
+    var senha by remember { mutableStateOf("") }
+
+    val coroutineScope = rememberCoroutineScope()
+
+    var context = LocalContext.current
+
     Box {
         Image(
             painter = painterResource(id = R.drawable.background),
@@ -84,22 +101,38 @@ fun FormularioLoginScreen(navController: NavController?) {
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 CustomTextField(
-                    value = "",
-                    onValueChange = { },
+                    value = email,
+                    onValueChange = { email = it },
                     label = stringResource(id = R.string.text_email),
                     placeholder = stringResource(id = R.string.text_email)
                 )
 
                 CustomTextField(
-                    value = "",
-                    onValueChange = { },
+                    value = senha,
+                    onValueChange = { senha = it },
                     label = stringResource(id = R.string.text_senha),
                     placeholder = stringResource(id = R.string.text_senha),
                     isPassword = true
                 )
             }
 
-            ButtonDefault(text = R.string.text_entrar, onClick = {})
+            ButtonDefault(text = R.string.text_entrar, onClick = {
+                coroutineScope.launch {
+                    if (userViewModel != null) {
+                        val autenticado = userViewModel?.autentica(email, senha)
+                        if (autenticado != null) {
+                            navController?.navigate("homeScreen")
+                        } else {
+                            Toast.makeText(context, "Email ou senha incorretos", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    } else {
+                        Toast.makeText(context, "Erro ao autenticar usuário", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }
+            })
+
         }
     }
 }
@@ -107,6 +140,6 @@ fun FormularioLoginScreen(navController: NavController?) {
 @Preview(showBackground = true)
 @Composable
 fun LoginScreenPreview() {
-    FormularioLoginScreen(null)
+    FormularioLoginScreen(null, null)
 }
 

@@ -15,6 +15,10 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,11 +30,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.android.orgs.R
+import com.android.orgs.model.Usuario
 import com.android.orgs.ui.components.ButtonDefault
 import com.android.orgs.ui.components.CustomTextField
+import com.android.orgs.viewmodels.UserViewModel
 
 @Composable
-fun FormularioCadastroScreen(navController: NavController?) {
+fun FormularioCadastroScreen(navController: NavController?, userViewModel: UserViewModel?) {
+
+    var nome by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
+    var senha by remember { mutableStateOf("") }
+
     Box {
         Image(
             painter = painterResource(id = R.drawable.background),
@@ -84,31 +95,32 @@ fun FormularioCadastroScreen(navController: NavController?) {
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 CustomTextField(
-                    value = "",
-                    onValueChange = { },
+                    value = nome,
+                    onValueChange = { nome = it },
                     label = stringResource(id = R.string.text_usuario),
                     placeholder = stringResource(id = R.string.text_usuario)
                 )
 
                 CustomTextField(
-                    value = "",
-                    onValueChange = { },
+                    value = email,
+                    onValueChange = { email = it },
                     label = stringResource(id = R.string.text_email),
                     placeholder = stringResource(id = R.string.text_email)
                 )
 
                 CustomTextField(
-                    value = "",
-                    onValueChange = { },
+                    value = senha,
+                    onValueChange = { senha = it },
                     label = stringResource(id = R.string.text_senha),
                     placeholder = stringResource(id = R.string.text_senha),
                     isPassword = true
                 )
             }
-
-
+            
             ButtonDefault(text = R.string.text_entrar, onClick = {
-
+                val novoUsuario = Usuario(0L, nome, email, senha)
+                userViewModel?.cadastrarUsuario(novoUsuario)
+                navController?.navigate("homeScreen")
             })
         }
     }
@@ -117,6 +129,6 @@ fun FormularioCadastroScreen(navController: NavController?) {
 @Preview(showBackground = true)
 @Composable
 fun FormularioCadastroScreenPreview() {
-    FormularioCadastroScreen(null)
+    FormularioCadastroScreen(null, null)
 }
 

@@ -1,7 +1,11 @@
 package com.android.orgs.database
 
 import android.content.Context
-import androidx.room.*
+import androidx.room.AutoMigration
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.android.orgs.database.converters.Converters
 import com.android.orgs.database.dao.ProdutoDao
 import com.android.orgs.database.dao.UsuarioDao
@@ -13,11 +17,11 @@ import com.android.orgs.model.Usuario
         Produto::class,
         Usuario::class
     ],
-    version = 3,
+    version = 4,
     exportSchema = true,
     
     autoMigrations = [
-        AutoMigration(from = 2, to = 3)
+        AutoMigration(from = 3, to = 4)
     ]
 )
 @TypeConverters(Converters::class)

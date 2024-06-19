@@ -3,13 +3,16 @@ package com.android.orgs.ui.activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.android.orgs.ui.activity.ui.theme.OrgsTheme
 import com.android.orgs.ui.screens.FormularioCadastroScreen
 import com.android.orgs.ui.screens.FormularioLoginScreen
+import com.android.orgs.ui.screens.HomeScreen
 import com.android.orgs.ui.screens.TelaInicialDeslogadoScreen
+import com.android.orgs.viewmodels.UserViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,6 +20,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             OrgsTheme {
                 val navController = rememberNavController()
+                val userViewModel: UserViewModel = viewModel()
 
                 NavHost(
                     navController = navController,
@@ -30,12 +34,17 @@ class MainActivity : ComponentActivity() {
                     composable(
                         route = "formularioLoginScreen"
                     ) {
-                        FormularioLoginScreen(navController)
+                        FormularioLoginScreen(navController, userViewModel)
                     }
                     composable(
                         route = "formularioCadastroScreen"
                     ) {
-                        FormularioCadastroScreen(navController)
+                        FormularioCadastroScreen(navController, userViewModel)
+                    }
+                    composable(
+                        route = "homeScreen"
+                    ) {
+                        HomeScreen(navController)
                     }
                 }
             }

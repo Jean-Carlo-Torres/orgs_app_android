@@ -16,7 +16,7 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
-import java.util.*
+import java.util.Locale
 
 private val TAG = "ListaProdutosActivity"
 
@@ -45,7 +45,7 @@ class ListaProdutosActivity : UsuarioBaseActivity() {
                 usuario
                     .filterNotNull()
                     .collect {usuario ->
-                        buscaProdutosUsuario(usuario.id)
+//                        buscaProdutosUsuario(usuario.id)
                     }
             }
         }
@@ -178,7 +178,7 @@ class ListaProdutosActivity : UsuarioBaseActivity() {
                 usuario
                     .filterNotNull()
                     .collect {usuario ->
-                        buscaProdutosUsuario(usuario.id)
+//                        buscaProdutosUsuario(usuario.id)
                     }
             }
         }

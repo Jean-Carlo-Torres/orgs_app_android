@@ -26,6 +26,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.android.orgs.R
 import com.android.orgs.ui.activity.ui.theme.background
 import com.android.orgs.ui.components.BannerTop
@@ -34,7 +35,7 @@ import com.android.orgs.ui.components.SugestoesDoDiaBanner
 import java.math.BigDecimal
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(navController: NavController?) {
     Column(
         modifier = Modifier.background(color = background)
     ) {
@@ -145,5 +146,5 @@ fun HomeScreen() {
 @Preview(showBackground = true)
 @Composable
 private fun HomeScreenScreen() {
-    HomeScreen()
+    HomeScreen(null)
 }

@@ -107,7 +107,9 @@ fun FormularioCadastroScreen(navController: NavController?) {
             }
 
 
-            ButtonDefault(text = R.string.text_entrar, onClick = {})
+            ButtonDefault(text = R.string.text_entrar, onClick = {
+
+            })
         }
     }
 }

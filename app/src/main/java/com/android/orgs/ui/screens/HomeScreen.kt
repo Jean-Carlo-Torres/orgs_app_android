@@ -30,6 +30,7 @@ import androidx.navigation.NavController
 import com.android.orgs.R
 import com.android.orgs.ui.activity.ui.theme.background
 import com.android.orgs.ui.components.BannerTop
+import com.android.orgs.ui.components.FooterMenu
 import com.android.orgs.ui.components.SearchTextField
 import com.android.orgs.ui.components.SugestoesDoDiaBanner
 import java.math.BigDecimal
@@ -117,7 +118,7 @@ fun HomeScreen(navController: NavController?) {
                         .fillMaxWidth()
                         .horizontalScroll(rememberScrollState())
                         .padding(horizontal = 16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                    horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
                     SugestoesDoDiaBanner(
                         nameProduct = "Cesta Grande",
@@ -138,6 +139,8 @@ fun HomeScreen(navController: NavController?) {
                         supplier = "Pássaro Delivery"
                     )
                 }
+                Spacer(modifier = Modifier.weight(1f))
+                FooterMenu(navController = navController)
             }
         }
     }

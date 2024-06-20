@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -42,7 +41,7 @@ fun SugestoesDoDiaBanner(
         modifier = Modifier
             .shadow(4.dp, RoundedCornerShape(16.dp))
             .clip(RoundedCornerShape(16.dp))
-            .fillMaxWidth()
+            .width(264.dp)
             .height(108.dp)
             .background(Color(0xFFCFDFAC)),
         horizontalArrangement = Arrangement.SpaceBetween
@@ -55,11 +54,11 @@ fun SugestoesDoDiaBanner(
         ) {
             Text(
                 text = nameProduct,
-                fontSize = 16.sp
+                fontSize = 12.sp
             )
             Text(
                 text = "R$ ${price.formatarParaMoedaBrasileira()}",
-                fontSize = 24.sp,
+                fontSize = 20.sp,
                 fontWeight = FontWeight.Bold
             )
             Text(
@@ -71,7 +70,7 @@ fun SugestoesDoDiaBanner(
             modifier = Modifier
                 .clip(RoundedCornerShape(16.dp))
                 .height(92.dp)
-                .width(184.dp)
+                .width(102.dp)
                 .align(Alignment.CenterVertically)
         ) {
             Image(
@@ -83,7 +82,7 @@ fun SugestoesDoDiaBanner(
                 contentScale = ContentScale.FillBounds
             )
         }
-        Spacer(modifier = Modifier)
+        Spacer(modifier = Modifier.width(16.dp))
 
     }
 }

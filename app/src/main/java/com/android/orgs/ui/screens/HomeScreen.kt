@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,6 +32,7 @@ import com.android.orgs.R
 import com.android.orgs.ui.activity.ui.theme.background
 import com.android.orgs.ui.components.BannerTop
 import com.android.orgs.ui.components.FooterMenu
+import com.android.orgs.ui.components.ListaProdutores
 import com.android.orgs.ui.components.SearchTextField
 import com.android.orgs.ui.components.SugestoesDoDiaBanner
 import java.math.BigDecimal
@@ -38,7 +40,10 @@ import java.math.BigDecimal
 @Composable
 fun HomeScreen(navController: NavController?) {
     Column(
-        modifier = Modifier.background(color = background)
+        modifier = Modifier
+            .background(color = background)
+            .verticalScroll(rememberScrollState())
+            .padding(bottom = 64.dp)
     ) {
         Box {
             Box(
@@ -139,11 +144,15 @@ fun HomeScreen(navController: NavController?) {
                         supplier = "Pássaro Delivery"
                     )
                 }
-                Spacer(modifier = Modifier.weight(1f))
-                FooterMenu(navController = navController)
+                Column(
+                    Modifier.padding(horizontal = 16.dp)
+                ) {
+                    ListaProdutores(navController = navController)
+                }
             }
         }
     }
+    FooterMenu(navController = navController)
 }
 
 @Preview(showBackground = true)

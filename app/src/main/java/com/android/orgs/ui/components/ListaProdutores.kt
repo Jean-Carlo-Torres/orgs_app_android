@@ -20,6 +20,8 @@ import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,11 +33,46 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.android.orgs.model.Fornecedor
 import com.android.orgs.ui.activity.ui.theme.background
 import com.android.orgs.ui.activity.ui.theme.verde
+import com.android.orgs.viewmodels.FornecedorViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.math.BigDecimal
 
 @Composable
-fun ListaProdutores(navController: NavController?) {
+fun ListaProdutores(navController: NavController?, fornecedorViewModel: FornecedorViewModel?) {
+
+    var coroutineScope = rememberCoroutineScope()
+
+    val fornecedores = listOf(
+        Fornecedor(
+            image = "https://images.squarespace-cdn.com/content/5e90f51f5542933b842d0395/1587586237132-7NOEIO0H744OKSCH9A0P/logo.png?content-type=image%2Fpng",
+            title = "Jenny Jack",
+            rating = BigDecimal(5),
+            distance = BigDecimal(2.1)
+        ),
+        Fornecedor(
+            image = "https://masterbundles.com/wp-content/uploads/2023/03/leaf-ai-599.jpg",
+            title = "Folhas Delivery",
+            rating = BigDecimal(5),
+            distance = BigDecimal(2.1)
+        ),
+        Fornecedor(
+            image = "https://img.freepik.com/premium-vector/organic-vegetables-badge-icon-vector-farm-veggie-pumpkin-red-bell-pepper-artichoke-isolated-organic-farm-market-grocery-vegetables-icon_8071-5519.jpg",
+            title = "Vote Green",
+            rating = BigDecimal(5),
+            distance = BigDecimal(2.1)
+        ),
+        Fornecedor(
+            image = "https://img.freepik.com/premium-vector/vector-logo-illustration-potato-mascot-cartoon-style_116762-8665.jpg",
+            title = "Potager",
+            rating = BigDecimal(5),
+            distance = BigDecimal(2.1)
+        )
+    )
+
     Column(
         Modifier.fillMaxSize()
     ) {
@@ -51,45 +88,22 @@ fun ListaProdutores(navController: NavController?) {
         Column(
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            ListaProdutoresItem(
-                image = "https://images.squarespace-cdn.com/content/5e90f51f5542933b842d0395/1587586237132-7NOEIO0H744OKSCH9A0P/logo.png?content-type=image%2Fpng",
-                title = "Jenny Jack",
-                rating = 5f,
-                distance = 2.1f,
-                onClick = {}
-            )
-            ListaProdutoresItem(
-                image = "https://masterbundles.com/wp-content/uploads/2023/03/leaf-ai-599.jpg",
-                title = "Folhas Delivery",
-                rating = 5f,
-                distance = 2.1f,
-                onClick = {}
-            )
-            ListaProdutoresItem(
-                image = "https://img.freepik.com/premium-vector/organic-vegetables-badge-icon-vector-farm-veggie-pumpkin-red-bell-pepper-artichoke-isolated-organic-farm-market-grocery-vegetables-icon_8071-5519.jpg",
-                title = "Vote Green",
-                rating = 5f,
-                distance = 2.1f,
-                onClick = {}
-            )
-            ListaProdutoresItem(
-                image = "https://img.freepik.com/premium-vector/vector-logo-illustration-potato-mascot-cartoon-style_116762-8665.jpg",
-                title = "Potager",
-                rating = 4f,
-                distance = 2.1f,
-                onClick = {}
-            )
+            fornecedores.forEach { fornecedor ->
+                LaunchedEffect(fornecedor) {
+                    coroutineScope.launch(Dispatchers.IO) {
+                        fornecedorViewModel?.cadastrar(fornecedor)
+                    }
+                }
+                ListaProdutoresItem(fornecedor, onClick = {})
+            }
         }
     }
 }
 
 @Composable
 fun ListaProdutoresItem(
-    image: String? = null,
-    title: String,
-    rating: Float,
-    distance: Float,
-    onClick:  () -> Unit = {}
+    fornecedor: Fornecedor,
+    onClick: () -> Unit = {}
 ) {
     Row(
         modifier = Modifier
@@ -97,7 +111,7 @@ fun ListaProdutoresItem(
             .fillMaxWidth()
             .height(80.dp)
             .background(background)
-            .clickable { onClick },
+            .clickable { onClick() },
         verticalAlignment = Alignment.CenterVertically
     ) {
         Spacer(modifier = Modifier.width(16.dp))
@@ -108,7 +122,7 @@ fun ListaProdutoresItem(
                 .align(Alignment.CenterVertically)
         ) {
             AsyncImage(
-                model = image,
+                model = fornecedor.image,
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxSize()
@@ -124,14 +138,14 @@ fun ListaProdutoresItem(
         ) {
             Column {
                 Text(
-                    text = title,
+                    text = fornecedor.title,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold
                 )
-                RatingStars(rating = rating)
+                RatingStars(rating = fornecedor.rating)
             }
             Text(
-                text = "$distance Km",
+                text = String.format("%.2f Km", fornecedor.distance),
                 modifier = Modifier.align(Alignment.CenterVertically)
             )
         }
@@ -139,10 +153,11 @@ fun ListaProdutoresItem(
 }
 
 @Composable
-fun RatingStars(rating: Float) {
+fun RatingStars(rating: BigDecimal) {
     Row {
+        val ratingInt = rating.toInt()
         for (i in 1..5) {
-            val starColor = if (i <= rating) verde else Color.Gray
+            val starColor = if (i <= ratingInt) verde else Color.Gray
             Icon(
                 imageVector = Icons.Default.Star,
                 contentDescription = null,
@@ -156,5 +171,5 @@ fun RatingStars(rating: Float) {
 @Preview(showBackground = true)
 @Composable
 private fun ListaProdutoresPreview() {
-    ListaProdutores(navController = null)
+    ListaProdutores(navController = null, null)
 }

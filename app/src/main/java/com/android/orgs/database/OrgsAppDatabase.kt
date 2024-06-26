@@ -7,27 +7,31 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.android.orgs.database.converters.Converters
+import com.android.orgs.database.dao.FornecedorDao
 import com.android.orgs.database.dao.ProdutoDao
 import com.android.orgs.database.dao.UsuarioDao
+import com.android.orgs.model.Fornecedor
 import com.android.orgs.model.Produto
 import com.android.orgs.model.Usuario
 
 @Database(
     entities = [
         Produto::class,
-        Usuario::class
+        Usuario::class,
+        Fornecedor::class
     ],
-    version = 4,
+    version = 5,
     exportSchema = true,
-    
+
     autoMigrations = [
-        AutoMigration(from = 3, to = 4)
+        AutoMigration(from = 4, to = 5)
     ]
 )
 @TypeConverters(Converters::class)
 abstract class OrgsAppDatabase : RoomDatabase() {
     abstract fun produtoDao(): ProdutoDao
     abstract fun usuarioDao(): UsuarioDao
+    abstract fun fornecedorDao(): FornecedorDao
 
     companion object {
         @Volatile

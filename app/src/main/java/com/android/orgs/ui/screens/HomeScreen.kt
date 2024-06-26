@@ -35,10 +35,11 @@ import com.android.orgs.ui.components.FooterMenu
 import com.android.orgs.ui.components.ListaProdutores
 import com.android.orgs.ui.components.SearchTextField
 import com.android.orgs.ui.components.SugestoesDoDiaBanner
+import com.android.orgs.viewmodels.FornecedorViewModel
 import java.math.BigDecimal
 
 @Composable
-fun HomeScreen(navController: NavController?) {
+fun HomeScreen(navController: NavController?, fornecedorViewModel: FornecedorViewModel?) {
     Column(
         modifier = Modifier
             .background(color = background)
@@ -147,7 +148,10 @@ fun HomeScreen(navController: NavController?) {
                 Column(
                     Modifier.padding(horizontal = 16.dp)
                 ) {
-                    ListaProdutores(navController = navController)
+                    ListaProdutores(
+                        navController = navController,
+                        fornecedorViewModel = fornecedorViewModel
+                    )
                 }
             }
         }
@@ -158,5 +162,5 @@ fun HomeScreen(navController: NavController?) {
 @Preview(showBackground = true)
 @Composable
 private fun HomeScreenScreen() {
-    HomeScreen(null)
+    HomeScreen(null, null)
 }

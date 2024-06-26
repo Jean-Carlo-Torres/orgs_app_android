@@ -12,6 +12,7 @@ import com.android.orgs.ui.screens.FormularioCadastroScreen
 import com.android.orgs.ui.screens.FormularioLoginScreen
 import com.android.orgs.ui.screens.HomeScreen
 import com.android.orgs.ui.screens.TelaInicialDeslogadoScreen
+import com.android.orgs.viewmodels.FornecedorViewModel
 import com.android.orgs.viewmodels.UserViewModel
 
 class MainActivity : ComponentActivity() {
@@ -21,6 +22,7 @@ class MainActivity : ComponentActivity() {
             OrgsTheme {
                 val navController = rememberNavController()
                 val userViewModel: UserViewModel = viewModel()
+                val fornecedorViewModel: FornecedorViewModel = viewModel()
 
                 NavHost(
                     navController = navController,
@@ -44,7 +46,7 @@ class MainActivity : ComponentActivity() {
                     composable(
                         route = "homeScreen"
                     ) {
-                        HomeScreen(navController)
+                        HomeScreen(navController, fornecedorViewModel)
                     }
                 }
             }

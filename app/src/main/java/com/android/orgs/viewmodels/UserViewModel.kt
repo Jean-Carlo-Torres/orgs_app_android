@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 class UserViewModel(application: Application) : AndroidViewModel(application) {
 
     private val usuarioDao = OrgsAppDatabase.instancia(application).usuarioDao()
-    var user: Usuario? by mutableStateOf(null)
+    private var user: Usuario? by mutableStateOf(null)
 
     fun cadastrarUsuario(usuario: Usuario) {
         viewModelScope.launch {

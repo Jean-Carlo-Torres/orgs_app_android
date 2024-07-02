@@ -43,29 +43,32 @@ import java.math.BigDecimal
 
 @Composable
 fun ListaProdutores(navController: NavController?, fornecedorViewModel: FornecedorViewModel?) {
-
     var coroutineScope = rememberCoroutineScope()
 
     val fornecedores = listOf(
         Fornecedor(
+            id = 1L,
             image = "https://images.squarespace-cdn.com/content/5e90f51f5542933b842d0395/1587586237132-7NOEIO0H744OKSCH9A0P/logo.png?content-type=image%2Fpng",
             title = "Jenny Jack",
             rating = BigDecimal(5),
             distance = BigDecimal(2.1)
         ),
         Fornecedor(
+            id = 2L,
             image = "https://masterbundles.com/wp-content/uploads/2023/03/leaf-ai-599.jpg",
             title = "Folhas Delivery",
             rating = BigDecimal(5),
             distance = BigDecimal(2.1)
         ),
         Fornecedor(
+            id = 3L,
             image = "https://img.freepik.com/premium-vector/organic-vegetables-badge-icon-vector-farm-veggie-pumpkin-red-bell-pepper-artichoke-isolated-organic-farm-market-grocery-vegetables-icon_8071-5519.jpg",
             title = "Vote Green",
             rating = BigDecimal(5),
             distance = BigDecimal(2.1)
         ),
         Fornecedor(
+            id = 4L,
             image = "https://img.freepik.com/premium-vector/vector-logo-illustration-potato-mascot-cartoon-style_116762-8665.jpg",
             title = "Potager",
             rating = BigDecimal(5),
@@ -90,11 +93,15 @@ fun ListaProdutores(navController: NavController?, fornecedorViewModel: Forneced
         ) {
             fornecedores.forEach { fornecedor ->
                 LaunchedEffect(fornecedor) {
-                    coroutineScope.launch(Dispatchers.IO) {
+                    coroutineScope.launch {
                         fornecedorViewModel?.cadastrar(fornecedor)
                     }
                 }
-                ListaProdutoresItem(fornecedor, onClick = {})
+                ListaProdutoresItem(fornecedor, onClick = {
+                    fornecedor.id?.let {
+                        navController?.navigate("fornecedor/$it")
+                    }
+                })
             }
         }
     }

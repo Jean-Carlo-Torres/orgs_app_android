@@ -43,4 +43,5 @@
     <string name="text_valor_decrescente">valor decrescente</string>
     <string name="text_valor_crescente">valor crescente</string>
     <string name="text_sem_ordem">Sem ordem</string>
+    <string name="text_comprar_cesta">Comprar cesta</string>
 </resources>

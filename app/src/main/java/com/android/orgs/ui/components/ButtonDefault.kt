@@ -2,7 +2,6 @@ package com.android.orgs.ui.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
@@ -21,9 +20,7 @@ fun ButtonDefault(text: Int, onClick: () -> Unit){
         onClick = onClick,
         modifier = Modifier
             .fillMaxWidth()
-            .height(80.dp)
-            .padding(horizontal = 16.dp)
-            .padding(top = 16.dp),
+            .height(80.dp),
         colors = ButtonDefaults.buttonColors(verde)
     ) {
         Text(

@@ -86,9 +86,15 @@ fun TelaInicialDeslogadoScreen(navController: NavController?) {
                     .align(Alignment.CenterHorizontally)
             )
 
-            ButtonDefault(R.string.text_entrar, onClick = {
-                navController?.navigate("formularioLoginScreen")
-            })
+            Box(
+                Modifier
+                    .padding(horizontal = 16.dp)
+                    .padding(top = 16.dp)
+            ) {
+                ButtonDefault(R.string.text_entrar, onClick = {
+                    navController?.navigate("formularioLoginScreen")
+                })
+            }
 
             Button(
                 onClick = {

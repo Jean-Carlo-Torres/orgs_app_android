@@ -11,6 +11,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.android.orgs.ui.activity.ui.theme.OrgsTheme
+import com.android.orgs.ui.screens.DetalhesProdutoScreen
 import com.android.orgs.ui.screens.FormularioCadastroScreen
 import com.android.orgs.ui.screens.FormularioLoginScreen
 import com.android.orgs.ui.screens.FornecedorScreen
@@ -52,6 +53,18 @@ class MainActivity : ComponentActivity() {
                         route = "homeScreen"
                     ) {
                         HomeScreen(navController, fornecedorViewModel)
+                    }
+                    composable(
+                        route = "detalhesProdutoScreen/{produtoId}/{fornecedorId}",
+                        arguments = listOf(
+                            navArgument("produtoId") { type = NavType.LongType },
+                            navArgument("fornecedorId") { type = NavType.LongType }
+                        )
+                    ) { backStackEntry ->
+                        val produtoId = backStackEntry.arguments?.getLong("produtoId")
+                        val fornecedorId = backStackEntry.arguments?.getLong("fornecedorId")
+                        Log.d("Navigation", "Navigating to detalhesProdutoScreen with produtoId: $produtoId and fornecedorId: $fornecedorId")
+                        DetalhesProdutoScreen(navController = navController, produtoId = produtoId, fornecedorId = fornecedorId)
                     }
                     composable(
                         route = "fornecedor/{fornecedorId}",

@@ -116,22 +116,28 @@ fun FormularioLoginScreen(navController: NavController?, userViewModel: UserView
                 )
             }
 
-            ButtonDefault(text = R.string.text_entrar, onClick = {
-                coroutineScope.launch {
-                    if (userViewModel != null) {
-                        val autenticado = userViewModel?.autentica(email, senha)
-                        if (autenticado != null) {
-                            navController?.navigate("homeScreen")
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 24.dp)
+            ) {
+                ButtonDefault(text = R.string.text_entrar, onClick = {
+                    coroutineScope.launch {
+                        if (userViewModel != null) {
+                            val autenticado = userViewModel?.autentica(email, senha)
+                            if (autenticado != null) {
+                                navController?.navigate("homeScreen")
+                            } else {
+                                Toast.makeText(context, "Email ou senha incorretos", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
                         } else {
-                            Toast.makeText(context, "Email ou senha incorretos", Toast.LENGTH_SHORT)
+                            Toast.makeText(context, "Erro ao autenticar usuário", Toast.LENGTH_SHORT)
                                 .show()
                         }
-                    } else {
-                        Toast.makeText(context, "Erro ao autenticar usuário", Toast.LENGTH_SHORT)
-                            .show()
                     }
-                }
-            })
+                })
+            }
 
         }
     }

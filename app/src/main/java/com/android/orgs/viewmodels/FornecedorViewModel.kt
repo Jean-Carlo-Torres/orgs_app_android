@@ -37,9 +37,6 @@ class FornecedorViewModel(application: Application) : AndroidViewModel(applicati
         }
     }
 
-    private val _isLoading = MutableStateFlow(true)
-    val isLoading: StateFlow<Boolean> get() = _isLoading
-
     private val _fornecedor = MutableStateFlow<Fornecedor?>(null)
     val fornecedor: StateFlow<Fornecedor?> get() = _fornecedor
 }

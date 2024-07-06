@@ -116,12 +116,18 @@ fun FormularioCadastroScreen(navController: NavController?, userViewModel: UserV
                     isPassword = true
                 )
             }
-            
-            ButtonDefault(text = R.string.text_entrar, onClick = {
-                val novoUsuario = Usuario(0L, nome, email, senha)
-                userViewModel?.cadastrarUsuario(novoUsuario)
-                navController?.navigate("homeScreen")
-            })
+
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 24.dp),
+            ){
+                ButtonDefault(text = R.string.text_entrar, onClick = {
+                    val novoUsuario = Usuario(0L, nome, email, senha)
+                    userViewModel?.cadastrarUsuario(novoUsuario)
+                    navController?.navigate("homeScreen")
+                })
+            }
         }
     }
 }

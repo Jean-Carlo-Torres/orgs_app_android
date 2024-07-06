@@ -1,6 +1,7 @@
 package com.android.orgs.ui.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -28,13 +29,14 @@ import com.android.orgs.ui.activity.ui.theme.verde
 import java.math.BigDecimal
 
 @Composable
-fun ListaProdutoItem(produto: Produto) {
+fun ListaProdutoItem(produto: Produto, onClick: () -> Unit = {}) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
             .background(Color.White)
             .padding(8.dp)
+            .clickable { onClick() }
     ) {
         AsyncImage(
             model = produto.imagem,

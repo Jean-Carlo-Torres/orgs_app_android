@@ -26,6 +26,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -42,6 +43,8 @@ import com.android.orgs.model.Fornecedor
 import com.android.orgs.model.Produto
 import com.android.orgs.ui.components.ListaProdutoItem
 import com.android.orgs.viewmodels.FornecedorViewModel
+import com.android.orgs.viewmodels.ProdutoViewModel
+import kotlinx.coroutines.launch
 import java.math.BigDecimal
 
 @Composable
@@ -68,6 +71,7 @@ fun FornecedorScreen(
                 CircularProgressIndicator()
             }
         }
+
         else -> {
             fornecedor?.let {
                 FornecedorContent(it, navController)
@@ -78,6 +82,7 @@ fun FornecedorScreen(
 
 @Composable
 fun FornecedorContent(fornecedor: Fornecedor, navController: NavController?) {
+    val productViewModel: ProdutoViewModel = viewModel()
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -158,7 +163,7 @@ fun FornecedorContent(fornecedor: Fornecedor, navController: NavController?) {
         )
         val produtos = listOf(
             Produto(
-                id = 0,
+                id = 1,
                 nome = "Cesta extra grande",
                 descricao = "Reprehenderit posuere rerum aliquip possimus aptent alias quos sint nisl morbi autem.",
                 valor = BigDecimal(70.0),
@@ -166,7 +171,7 @@ fun FornecedorContent(fornecedor: Fornecedor, navController: NavController?) {
                 usuarioId = null
             ),
             Produto(
-                id = 0,
+                id = 2,
                 nome = "Cesta extra grande",
                 descricao = "Reprehenderit posuere rerum aliquip possimus aptent alias quos sint nisl morbi autem.",
                 valor = BigDecimal(70.0),
@@ -174,7 +179,7 @@ fun FornecedorContent(fornecedor: Fornecedor, navController: NavController?) {
                 usuarioId = null
             ),
             Produto(
-                id = 0,
+                id = 3,
                 nome = "Cesta extra grande",
                 descricao = "Reprehenderit posuere rerum aliquip possimus aptent alias quos sint nisl morbi autem.",
                 valor = BigDecimal(70.0),
@@ -182,7 +187,7 @@ fun FornecedorContent(fornecedor: Fornecedor, navController: NavController?) {
                 usuarioId = null
             ),
             Produto(
-                id = 0,
+                id = 4,
                 nome = "Cesta extra grande",
                 descricao = "Reprehenderit posuere rerum aliquip possimus aptent alias quos sint nisl morbi autem.",
                 valor = BigDecimal(70.0),
@@ -190,8 +195,17 @@ fun FornecedorContent(fornecedor: Fornecedor, navController: NavController?) {
                 usuarioId = null
             ),
         )
+        val coroutineScope = rememberCoroutineScope()
         produtos.forEach { produto ->
-            ListaProdutoItem(produto = produto)
+            LaunchedEffect(produto) {
+                coroutineScope.launch {
+                    productViewModel.salvar(produto)
+                }
+            }
+            ListaProdutoItem(produto = produto, onClick = {
+                navController?.navigate("detalhesProdutoScreen/${produto.id}/${fornecedor.id}")
+            }
+            )
         }
     }
 }

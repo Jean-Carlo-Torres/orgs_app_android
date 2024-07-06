@@ -1,6 +1,10 @@
 package com.android.orgs.database.dao
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.android.orgs.model.Produto
 import kotlinx.coroutines.flow.Flow
 
@@ -14,13 +18,13 @@ interface ProdutoDao {
     fun buscaTodosDoUsuario(idUsuario: String): Flow<List<Produto>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun salvar(vararg produto: Produto)
+    fun salvar(vararg produto: Produto)
 
     @Delete
     suspend fun remove(produto: Produto)
 
     @Query("SELECT * FROM Produto WHERE id = :id")
-    suspend fun buscaPorId(id: Long): Produto?
+    fun buscaPorId(id: Long): Produto?
 
     @Query("SELECT * FROM Produto ORDER BY nome DESC")
     fun ordenarProdutosPorNomeDecrescente(): List<Produto>

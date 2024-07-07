@@ -95,20 +95,20 @@ fun HomeScreen(navController: NavController?, fornecedorViewModel: FornecedorVie
                             .padding(bottom = 24.dp)
                     )
 
-                    SearchTextField(searchText = "Pesquisar") {}
+                    SearchTextField(searchText = "") {}
 
                     Spacer(modifier = Modifier.height(20.dp))
                     BannerTop(
                         icone = R.drawable.ic_delivery,
-                        title = "Entrega Rápida",
-                        subtitle = "Veja as melhores da semana",
+                        title = stringResource(id = R.string.text_entrega_rapida),
+                        subtitle = stringResource(id = R.string.text_veja_as_melhores_da_semana),
                         image = R.drawable.image14,
                         onClick = {}
                     )
                 }
 
                 Text(
-                    text = "Cestas populares",
+                    text = stringResource(id = R.string.text_cestas_populares),
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(

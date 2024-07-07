@@ -44,4 +44,10 @@
     <string name="text_valor_crescente">valor crescente</string>
     <string name="text_sem_ordem">Sem ordem</string>
     <string name="text_comprar_cesta">Comprar cesta</string>
+    <string name="text_pesquisar">Pesquisar</string>
+    <string name="text_entrega_rapida">Entrega Rápida</string>
+    <string name="text_veja_as_melhores_da_semana">Veja as melhores da semana</string>
+    <string name="text_ver">Ver</string>
+    <string name="text_cestas_populares">Cestas Populares</string>
+    <string name="text_mais_produtores">Mais produtores</string>
 </resources>

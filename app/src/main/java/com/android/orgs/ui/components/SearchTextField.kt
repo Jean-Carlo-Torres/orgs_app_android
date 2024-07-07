@@ -9,6 +9,8 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import com.android.orgs.R
 
 @Composable
 fun SearchTextField(
@@ -29,7 +31,7 @@ fun SearchTextField(
             )
         },
         label = {
-            Text("Pesquisar")
+            Text(stringResource(R.string.text_pesquisar))
         },
         placeholder = {
             Text("Procurar Pókemon...")

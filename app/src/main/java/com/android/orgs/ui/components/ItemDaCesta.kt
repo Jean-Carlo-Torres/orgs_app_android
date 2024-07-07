@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
@@ -22,10 +21,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.android.orgs.model.ItemCesta
+import com.android.orgs.model.enums.TipoDeVenda
 import com.android.orgs.ui.activity.ui.theme.background
 
 @Composable
@@ -64,13 +65,34 @@ fun ItemDaCesta(
                 .padding(horizontal = 16.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Column {
-                Text(
-                    text = item.nome,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Bold
-                )
+            Text(
+                text = item.nome,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Bold
+            )
+            var quantidadeFormatada = ""
+            when (item.tipoDeVenda) {
+                TipoDeVenda.AVULSA -> quantidadeFormatada = "${item.quantidade} und"
+                TipoDeVenda.POR_KG -> quantidadeFormatada = "${item.quantidade} Kg"
+                TipoDeVenda.POR_DUZIA -> quantidadeFormatada = "${item.quantidade} dúzia"
             }
+            Text(
+                text = quantidadeFormatada,
+                fontSize = 12.sp
+            )
         }
     }
+}
+
+@Preview
+@Composable
+private fun ItemDaCestaPreview() {
+    ItemDaCesta(
+        item = ItemCesta(
+            nome = "Maçãs",
+            imagem = "https://parade.com/.image/t_share/MTkwNTgxNDY1MzcxMTkxMTY0/different-types-of-apples-jpg.jpg",
+            tipoDeVenda = TipoDeVenda.AVULSA,
+            quantidade = 8
+        )
+    )
 }

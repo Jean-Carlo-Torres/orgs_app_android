@@ -43,5 +43,11 @@
     <string name="text_idioma_es">Spanish</string>
     <string name="text_idioma_pt_br">Portuguese (BR)</string>
     <string name="text_comprar_cesta">Buy basket</string>
+    <string name="text_pesquisar">Search</string>
+    <string name="text_entrega_rapida">Fast Delivery</string>
+    <string name="text_veja_as_melhores_da_semana">See the best of the week</string>
+    <string name="text_ver">Look</string>
+    <string name="text_cestas_populares">Popular Baskets</string>
+    <string name="text_mais_produtores">More Producers</string>
 
 </resources>

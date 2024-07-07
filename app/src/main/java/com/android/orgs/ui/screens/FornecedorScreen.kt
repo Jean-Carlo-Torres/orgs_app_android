@@ -172,25 +172,25 @@ fun FornecedorContent(fornecedor: Fornecedor, navController: NavController?) {
             ),
             Produto(
                 id = 2,
-                nome = "Cesta extra grande",
+                nome = "Cesta grande",
                 descricao = "Reprehenderit posuere rerum aliquip possimus aptent alias quos sint nisl morbi autem.",
-                valor = BigDecimal(70.0),
+                valor = BigDecimal(55.0),
                 imagem = "https://food.fnr.sndimg.com/content/dam/images/food/fullset/2022/06/23/fn_fruit-bowl-healthy-getty_s4x3.jpg.rend.hgtvcom.1280.960.suffix/1655995735443.jpeg",
                 usuarioId = null
             ),
             Produto(
                 id = 3,
-                nome = "Cesta extra grande",
+                nome = "Cesta média",
                 descricao = "Reprehenderit posuere rerum aliquip possimus aptent alias quos sint nisl morbi autem.",
-                valor = BigDecimal(70.0),
+                valor = BigDecimal(40.0),
                 imagem = "https://kidlingoo.com/wp-content/uploads/vegetables_name_in_english_50.jpg",
                 usuarioId = null
             ),
             Produto(
                 id = 4,
-                nome = "Cesta extra grande",
+                nome = "Cesta pequena",
                 descricao = "Reprehenderit posuere rerum aliquip possimus aptent alias quos sint nisl morbi autem.",
-                valor = BigDecimal(70.0),
+                valor = BigDecimal(25.0),
                 imagem = "https://4.imimg.com/data4/AY/TE/IMOB-27708947/c__data_users_defapps_appdata_internetexplorer_temp_sav.jpg",
                 usuarioId = null
             ),

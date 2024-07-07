@@ -43,4 +43,10 @@
     <string name="text_idioma_es">Español</string>
     <string name="text_idioma_pt_br">Portugués (BR)</string>
     <string name="text_comprar_cesta">Comprar cesta</string>
+    <string name="text_pesquisar">Buscar</string>
+    <string name="text_entrega_rapida">Entrega Rápida</string>
+    <string name="text_veja_as_melhores_da_semana">Mira lo mejor de la semana</string>
+    <string name="text_ver">Vea</string>
+    <string name="text_cestas_populares">Cestas Populares</string>
+    <string name="text_mais_produtores">Más productores</string>
 </resources>

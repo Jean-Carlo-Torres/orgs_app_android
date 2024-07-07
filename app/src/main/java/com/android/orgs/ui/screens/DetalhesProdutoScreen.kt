@@ -43,6 +43,7 @@ import com.android.orgs.extensions.formatarParaMoedaBrasileira
 import com.android.orgs.model.Fornecedor
 import com.android.orgs.model.ItemCesta
 import com.android.orgs.model.Produto
+import com.android.orgs.model.enums.TipoDeVenda
 import com.android.orgs.ui.activity.ui.theme.verde
 import com.android.orgs.ui.components.ButtonDefault
 import com.android.orgs.ui.components.ItemDaCesta
@@ -186,11 +187,36 @@ fun DetalhesProdutoContent(
                 fontWeight = FontWeight.Bold
             )
             val itensDaCesta = listOf(
-                ItemCesta("Bananas", "https://www.daysoftheyear.com/wp-content/uploads/banana-day1-scaled.jpg"),
-                ItemCesta("Maçãs", "https://parade.com/.image/t_share/MTkwNTgxNDY1MzcxMTkxMTY0/different-types-of-apples-jpg.jpg"),
-                ItemCesta("Melancias", "https://www.mundoecologia.com.br/wp-content/uploads/2019/05/Melancia-6-2.jpg"),
-                ItemCesta("Morangos", "https://www.ceasa-ce.com.br/wp-content/uploads/sites/87/2019/09/morango.jpg"),
-                ItemCesta("Uvas", "https://sandevid.com/wp-content/uploads/2020/04/grapes-4617986_1920-1536x1024-1.jpg")
+                ItemCesta(
+                    nome = "Bananas",
+                    imagem = "https://www.daysoftheyear.com/wp-content/uploads/banana-day1-scaled.jpg",
+                    tipoDeVenda = TipoDeVenda.POR_KG,
+                    quantidade = 2
+                ),
+                ItemCesta(
+                    nome ="Maçãs",
+                    imagem = "https://parade.com/.image/t_share/MTkwNTgxNDY1MzcxMTkxMTY0/different-types-of-apples-jpg.jpg",
+                    tipoDeVenda = TipoDeVenda.AVULSA,
+                    quantidade = 8
+                ),
+                ItemCesta(
+                    nome ="Melancias",
+                    imagem = "https://www.mundoecologia.com.br/wp-content/uploads/2019/05/Melancia-6-2.jpg",
+                    tipoDeVenda = TipoDeVenda.AVULSA,
+                    quantidade = 1
+                ),
+                ItemCesta(
+                    nome ="Morangos",
+                    imagem = "https://www.ceasa-ce.com.br/wp-content/uploads/sites/87/2019/09/morango.jpg",
+                    tipoDeVenda = TipoDeVenda.POR_KG,
+                    quantidade = 1
+                ),
+                ItemCesta(
+                    nome ="Uvas",
+                    imagem = "https://sandevid.com/wp-content/uploads/2020/04/grapes-4617986_1920-1536x1024-1.jpg",
+                    tipoDeVenda = TipoDeVenda.POR_KG,
+                    quantidade = 1
+                )
             )
 
             itensDaCesta.forEach { item ->

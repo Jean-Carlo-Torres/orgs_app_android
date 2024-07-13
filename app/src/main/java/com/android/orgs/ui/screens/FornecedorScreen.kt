@@ -19,13 +19,17 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -44,6 +48,7 @@ import com.android.orgs.model.Produto
 import com.android.orgs.ui.components.ListaProdutoItem
 import com.android.orgs.viewmodels.FornecedorViewModel
 import com.android.orgs.viewmodels.ProdutoViewModel
+import com.android.orgs.viewmodels.UserViewModel
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
 
@@ -54,6 +59,8 @@ fun FornecedorScreen(
 ) {
     val fornecedorViewModel: FornecedorViewModel = viewModel()
     val fornecedor by fornecedorViewModel.fornecedorSelecionado
+    val userViewModel: UserViewModel = viewModel()
+    val isFavorite = remember { mutableStateOf(false) }
 
     LaunchedEffect(fornecedorId) {
         fornecedorId?.let {
@@ -74,14 +81,19 @@ fun FornecedorScreen(
 
         else -> {
             fornecedor?.let {
-                FornecedorContent(it, navController)
+                FornecedorContent(it, navController, isFavorite, userViewModel)
             }
         }
     }
 }
 
 @Composable
-fun FornecedorContent(fornecedor: Fornecedor, navController: NavController?) {
+fun FornecedorContent(
+    fornecedor: Fornecedor,
+    navController: NavController?,
+    isFavorite: MutableState<Boolean>,
+    userViewModel: UserViewModel
+) {
     val productViewModel: ProdutoViewModel = viewModel()
     Column(
         modifier = Modifier
@@ -118,9 +130,22 @@ fun FornecedorContent(fornecedor: Fornecedor, navController: NavController?) {
                     .align(Alignment.TopEnd)
                     .background(Color.White, CircleShape)
                     .size(32.dp)
+                    .clickable {
+                        if (isFavorite.value) {
+                            fornecedor.id?.let {
+                                userViewModel.removeFornecedorFavorito(it)
+                            }
+                        } else {
+                            fornecedor.id?.let {
+                                userViewModel.addFornecedorFavorito(it)
+                            }
+                        }
+                    }
             ) {
                 Icon(
-                    imageVector = Icons.Default.FavoriteBorder,
+                    imageVector = if (isFavorite.value)
+                        Icons.Default.Favorite
+                    else Icons.Default.FavoriteBorder,
                     contentDescription = "Favorite",
                     modifier = Modifier.align(Alignment.Center)
                 )
@@ -204,8 +229,7 @@ fun FornecedorContent(fornecedor: Fornecedor, navController: NavController?) {
             }
             ListaProdutoItem(produto = produto, onClick = {
                 navController?.navigate("detalhesProdutoScreen/${produto.id}/${fornecedor.id}")
-            }
-            )
+            })
         }
     }
 }

@@ -30,6 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
 
 enum class FooterButtons(val icon: ImageVector, val title: String) {
     HOME(Icons.Default.Home, "Início"),
@@ -41,27 +42,49 @@ enum class FooterButtons(val icon: ImageVector, val title: String) {
 @Composable
 fun FooterMenu(navController: NavController?) {
 
-    var selectedButton by remember { mutableStateOf(FooterButtons.HOME) }
+    navController?.let {
+        val navBackStackEntry by it.currentBackStackEntryAsState()
+        val currentRoute = navBackStackEntry?.destination?.route
 
-    Column{
-        Spacer(modifier = Modifier.weight(1f))
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .height(58.dp)
-                .background(Color.White),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            FooterButtons.values().forEach { button ->
-                FooterMenuItem(
-                    icon = button.icon,
-                    title = button.title,
-                    isActive = button == selectedButton,
-                    onClick = { selectedButton = button }
-                )
+        var selectedButton by remember { mutableStateOf(FooterButtons.HOME) }
+
+        selectedButton = when (currentRoute) {
+            "homeScreen" -> FooterButtons.HOME
+            "favoritosScreen" -> FooterButtons.FAVORITES
+            "profile" -> FooterButtons.PROFILE
+            else -> FooterButtons.MENU
+        }
+
+        Column{
+            Spacer(modifier = Modifier.weight(1f))
+            Row(
+                Modifier
+                    .fillMaxWidth()
+                    .height(58.dp)
+                    .background(Color.White),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                FooterButtons.values().forEach { button ->
+                    FooterMenuItem(
+                        icon = button.icon,
+                        title = button.title,
+                        isActive = button == selectedButton,
+                        onClick = {
+                            selectedButton = button
+                            navController.navigate(
+                                when (button){
+                                    FooterButtons.HOME -> "homeScreen"
+                                    FooterButtons.FAVORITES -> "favoritosScreen"
+                                    FooterButtons.PROFILE -> "profile"
+                                    FooterButtons.MENU -> "menu"
+                                }
+                            )
+                        }
+                    )
+                }
+
             }
-
         }
     }
 }

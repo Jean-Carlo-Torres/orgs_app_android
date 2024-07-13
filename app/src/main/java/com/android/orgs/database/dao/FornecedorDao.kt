@@ -27,7 +27,7 @@ interface FornecedorDao {
     fun getFornecedorByTitle(title: String): Fornecedor?
 
     @Query("SELECT * FROM Fornecedor WHERE id = :id")
-    suspend fun getFornecedorById(id: Long): Fornecedor?
+    fun getFornecedorById(id: Long): Fornecedor?
 
     @Query("SELECT * FROM Fornecedor")
     fun getAll(): List<Fornecedor>

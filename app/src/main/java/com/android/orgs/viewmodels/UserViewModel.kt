@@ -9,27 +9,64 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.android.orgs.database.OrgsAppDatabase
 import com.android.orgs.model.Usuario
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class UserViewModel(application: Application) : AndroidViewModel(application) {
 
     private val usuarioDao = OrgsAppDatabase.instancia(application).usuarioDao()
-    private var user: Usuario? by mutableStateOf(null)
+    private val fornecedorDao = OrgsAppDatabase.instancia(application).fornecedorDao()
+    var user: Usuario? by mutableStateOf(null)
 
-    fun cadastrarUsuario(usuario: Usuario) {
-        viewModelScope.launch {
-            try {
-                usuarioDao.salva(usuario)
-            } catch (e: Exception) {
-                Log.i("CadastroUsuario", "configuraBotaoSalvar: $e")
-                throw e
+    init {
+        loadLoggedUser()
+    }
+
+    private fun loadLoggedUser() = viewModelScope.launch {
+        val loggedUser = user?.id?.let { usuarioDao.getLoggedUser(it) }
+        user = loggedUser
+    }
+
+    fun cadastrarUsuario(usuario: Usuario) = viewModelScope.launch {
+        try {
+            usuarioDao.salva(usuario)
+            user = usuario
+        } catch (e: Exception) {
+            Log.i("CadastroUsuario", "configuraBotaoSalvar: $e")
+            throw e
+        }
+    }
+
+    suspend fun autentica(email: String, senha: String): Usuario? {
+        val usuario = usuarioDao.autentica(email, senha)
+        user = usuario
+        return usuario
+    }
+
+    fun addFornecedorFavorito(fornecedorId: Long) {
+        user?.let {
+            if (!it.fornecedoresFavoritos.contains(fornecedorId)) {
+                it.fornecedoresFavoritos.add(fornecedorId)
+                viewModelScope.launch(Dispatchers.IO) {
+                    usuarioDao.update(it)
+                }
             }
         }
     }
 
-     suspend fun autentica(email: String, senha: String):  Usuario?{
-        val usuario = usuarioDao.autentica(email, senha)
-         user = usuario
-         return usuario
+    fun removeFornecedorFavorito(fornecedorId: Long) {
+        user?.let {
+            if (it.fornecedoresFavoritos.contains(fornecedorId)) {
+                it.fornecedoresFavoritos.remove(fornecedorId)
+                viewModelScope.launch(Dispatchers.IO) {
+                    usuarioDao.update(it)
+                }
+            }
+        }
+    }
+
+    fun getFornecedoresFavoritosIds(): List<Long> {
+        return user?.fornecedoresFavoritos ?: emptyList()
     }
 }
+

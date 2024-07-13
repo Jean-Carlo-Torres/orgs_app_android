@@ -12,6 +12,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.android.orgs.ui.activity.ui.theme.OrgsTheme
 import com.android.orgs.ui.screens.DetalhesProdutoScreen
+import com.android.orgs.ui.screens.FavoritosScreen
 import com.android.orgs.ui.screens.FormularioCadastroScreen
 import com.android.orgs.ui.screens.FormularioLoginScreen
 import com.android.orgs.ui.screens.FornecedorScreen
@@ -53,6 +54,11 @@ class MainActivity : ComponentActivity() {
                         route = "homeScreen"
                     ) {
                         HomeScreen(navController, fornecedorViewModel)
+                    }
+                    composable(
+                        route = "favoritosScreen"
+                    ) {
+                        FavoritosScreen(navController = navController, userViewModel, fornecedorViewModel)
                     }
                     composable(
                         route = "detalhesProdutoScreen/{produtoId}/{fornecedorId}",

@@ -19,6 +19,14 @@ class FornecedorViewModel(application: Application) : AndroidViewModel(applicati
     var fornecedorSelecionado: MutableState<Fornecedor?> = mutableStateOf(null)
         private set
 
+    val fornecedores = MutableStateFlow<List<Fornecedor>>(emptyList())
+
+    init {
+        viewModelScope.launch(Dispatchers.IO) {
+            fornecedores.value = fornecedorDao.getAll()
+        }
+    }
+
     fun getFornecedorById(id: Long) {
         viewModelScope.launch {
             val fornecedor = withContext(Dispatchers.IO) {
@@ -26,6 +34,10 @@ class FornecedorViewModel(application: Application) : AndroidViewModel(applicati
             }
             fornecedorSelecionado.value = fornecedor
         }
+    }
+
+    fun getFornecedoresFavoritos(favoritosIds: List<Long>): List<Fornecedor> {
+        return fornecedores.value.filter { it.id in favoritosIds }
     }
 
     fun cadastrar(fornecedor: Fornecedor) {

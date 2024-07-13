@@ -9,7 +9,8 @@ data class Usuario(
     val id: Long? = null,
     val nome: String,
     val email: String,
-    val senha: String
+    val senha: String,
+    var fornecedoresFavoritos: MutableList<Long> = mutableListOf()
 ) {
     fun valoresEhValido(): Boolean {
         val nomeIsValid: Boolean =

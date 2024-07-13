@@ -13,4 +13,14 @@ class Converters {
     fun bigDecimalParaDouble(valor: BigDecimal?): Double? {
         return valor?.let { valor.toDouble() }
     }
+
+    @TypeConverter
+    fun fromListToString(list: List<Long>?): String {
+        return list?.joinToString(",") ?: ""
+    }
+
+    @TypeConverter
+    fun fromStringToList(value: String): List<Long> {
+        return value.split(",").mapNotNull { it.toLongOrNull() }
+    }
 }

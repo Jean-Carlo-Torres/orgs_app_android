@@ -2,15 +2,19 @@ package com.android.orgs.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+import com.android.orgs.database.converters.Converters
 
 @Entity
+@TypeConverters(Converters::class)
 data class Usuario(
     @PrimaryKey(autoGenerate = true)
     val id: Long? = null,
     val nome: String,
     val email: String,
     val senha: String,
-    var fornecedoresFavoritos: MutableList<Long> = mutableListOf()
+    var fornecedoresFavoritos: MutableList<Long> = mutableListOf(),
+    var isLogged: Boolean = false
 ) {
     fun valoresEhValido(): Boolean {
         val nomeIsValid: Boolean =

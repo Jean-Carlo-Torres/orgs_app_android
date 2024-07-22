@@ -26,30 +26,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activity.MainActivity"></activity>
-        <activity
-            android:name=".ui.activity.ListaProdutosActivity"
-            android:exported="true" />
-        <activity
-            android:name=".ui.activity.TelaInicialDeslogadoActivity"
-            android:exported="true"
-            android:theme="@style/Theme.Orgs.NoActionBar" />
-        <activity
-            android:name=".ui.activity.LoginActivity"
-            android:theme="@style/Theme.Orgs.NoActionBar"></activity>
-        <activity
-            android:name=".ui.activity.FormularioCadastroUsuarioActivity"
-            android:exported="true"
-            android:label="@string/text_cadastrar_usuario"
-            android:theme="@style/Theme.Orgs.NoActionBar"
-            android:forceDarkAllowed="false"></activity>
-        <activity android:name=".ui.activity.DetalhesProdutoActivity" />
-        <activity
-            android:name=".ui.activity.FormularioProdutoActivity"
-            android:label="@string/text_cadastrar_produto"
-            android:theme="@style/Theme.Orgs" />
-        <activity
-            android:name=".ui.activity.PerfilUsuarioActivity"
-            android:label="@string/text_perfil" />
 
         <meta-data
             android:name="preloaded_fonts"

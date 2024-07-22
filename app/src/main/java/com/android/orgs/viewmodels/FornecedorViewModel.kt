@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.android.orgs.database.OrgsAppDatabase
+import com.android.orgs.database.repository.FornecedorRepository
 import com.android.orgs.model.Fornecedor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +15,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class FornecedorViewModel(application: Application) : AndroidViewModel(application) {
-    private val fornecedorDao = OrgsAppDatabase.instancia(application).fornecedorDao()
+
+    private val fornecedorRepository: FornecedorRepository
+
 
     var fornecedorSelecionado: MutableState<Fornecedor?> = mutableStateOf(null)
         private set
@@ -22,6 +25,8 @@ class FornecedorViewModel(application: Application) : AndroidViewModel(applicati
     val fornecedores = MutableStateFlow<List<Fornecedor>>(emptyList())
 
     init {
+        val fornecedorDao = OrgsAppDatabase.instancia(application).fornecedorDao()
+        fornecedorRepository = FornecedorRepository(fornecedorDao)
         viewModelScope.launch(Dispatchers.IO) {
             fornecedores.value = fornecedorDao.getAll()
         }
@@ -30,7 +35,7 @@ class FornecedorViewModel(application: Application) : AndroidViewModel(applicati
     fun getFornecedorById(id: Long) {
         viewModelScope.launch {
             val fornecedor = withContext(Dispatchers.IO) {
-                fornecedorDao.getFornecedorById(id)
+                fornecedorRepository.buscaPorId(id)
             }
             fornecedorSelecionado.value = fornecedor
         }
@@ -42,9 +47,9 @@ class FornecedorViewModel(application: Application) : AndroidViewModel(applicati
 
     fun cadastrar(fornecedor: Fornecedor) {
         viewModelScope.launch(Dispatchers.IO) {
-            val existingFornecedor = fornecedorDao.getFornecedorByTitle(fornecedor.title)
+            val existingFornecedor = fornecedorRepository.buscarPorTitulo(fornecedor.title)
             if (existingFornecedor == null) {
-                fornecedorDao.insert(fornecedor)
+                fornecedorRepository.salva(fornecedor)
             }
         }
     }

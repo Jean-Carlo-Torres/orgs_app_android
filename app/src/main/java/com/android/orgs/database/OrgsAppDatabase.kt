@@ -20,11 +20,11 @@ import com.android.orgs.model.Usuario
         Usuario::class,
         Fornecedor::class
     ],
-    version = 6,
+    version = 7,
     exportSchema = true,
 
     autoMigrations = [
-        AutoMigration(from = 5, to = 6)
+        AutoMigration(from = 6, to = 7)
     ]
 )
 @TypeConverters(Converters::class)

@@ -5,7 +5,6 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.android.orgs.model.Usuario
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface UsuarioDao {
@@ -23,11 +22,11 @@ interface UsuarioDao {
     suspend fun autentica(email: String, senha: String): Usuario?
 
     @Query("SELECT * FROM Usuario WHERE id = :usuarioId")
-    fun buscaPorId(usuarioId: String): Flow<Usuario>
+    fun buscaPorId(usuarioId: Long): Usuario?
 
     @Update
     fun update(usuario: Usuario)
 
-    @Query("SELECT * FROM Usuario WHERE id = :id")
-    suspend fun getLoggedUser(id: Long): Usuario?
+    @Query("SELECT * FROM usuario WHERE isLogged = 1 LIMIT 1")
+    suspend fun getLoggedUser(): Usuario?
 }

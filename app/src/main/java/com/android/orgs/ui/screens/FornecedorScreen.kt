@@ -60,7 +60,11 @@ fun FornecedorScreen(
     val fornecedorViewModel: FornecedorViewModel = viewModel()
     val fornecedor by fornecedorViewModel.fornecedorSelecionado
     val userViewModel: UserViewModel = viewModel()
-    val isFavorite = remember { mutableStateOf(false) }
+
+    val user = userViewModel?.user
+    val isFavorite = remember {
+        mutableStateOf(user?.fornecedoresFavoritos?.contains(fornecedorId) == true)
+    }
 
     LaunchedEffect(fornecedorId) {
         fornecedorId?.let {
@@ -131,15 +135,8 @@ fun FornecedorContent(
                     .background(Color.White, CircleShape)
                     .size(32.dp)
                     .clickable {
-                        if (isFavorite.value) {
-                            fornecedor.id?.let {
-                                userViewModel.removeFornecedorFavorito(it)
-                            }
-                        } else {
-                            fornecedor.id?.let {
-                                userViewModel.addFornecedorFavorito(it)
-                            }
-                        }
+                        userViewModel?.toggleFavorite(fornecedor)
+                        isFavorite.value = !isFavorite.value
                     }
             ) {
                 Icon(

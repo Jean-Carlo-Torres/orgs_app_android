@@ -75,19 +75,34 @@ fun FavoritosScreen(
                         .padding(top = 32.dp, start = 16.dp)
                 )
 
-                LazyColumn(
-                    modifier = Modifier
-                        .fillMaxSize()
-                ) {
-                    coroutineScope.launch {
-                        fornecedoresFavoritos?.let {
-                            items(fornecedoresFavoritos ?: emptyList()) { fornecedor ->
-                                ListaProdutoresItem(
-                                    fornecedor = fornecedor,
-                                    onClick = {
-                                        navController?.navigate("detalhesFornecedor/${fornecedor.id}")
-                                    }
-                                )
+                if (fornecedoresFavoritos?.isEmpty() == true){
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(top = 100.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = "Nenhum favorito encontrado!",
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                } else {
+                    LazyColumn(
+                        modifier = Modifier
+                            .fillMaxSize()
+                    ) {
+                        coroutineScope.launch {
+                            fornecedoresFavoritos?.let {
+                                items(fornecedoresFavoritos ?: emptyList()) { fornecedor ->
+                                    ListaProdutoresItem(
+                                        fornecedor = fornecedor,
+                                        onClick = {
+                                            navController?.navigate("detalhesFornecedor/${fornecedor.id}")
+                                        }
+                                    )
+                                }
                             }
                         }
                     }
